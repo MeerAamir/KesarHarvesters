@@ -1,0 +1,454 @@
+/* 
+   KesarHarvesters - Content Database
+   Contains: 20 Detailed Educational Blog Articles, 6 Recipes, and Product Configurations
+*/
+
+const BLOG_ARTICLES = [
+    {
+        id: 1,
+        title: "The Chemical Properties of Pampore Saffron's High Crocin Levels",
+        category: "Pampore Heritage",
+        categorySlug: "heritage",
+        date: "June 15, 2026",
+        img: "images/kashmiri-organic-saffron-premium-jar.webp",
+        excerpt: "Learn how altitude, Pleistocene Karewa clay, and climatic stress combine to yield the highest coloring strength globally.",
+        content: `
+            <p>Pampore, situated at 1,600 meters elevation in Kashmir, India, is famous for producing the most potent saffron in the world. The secret to this potency lies in three primary organic compounds: <strong>Crocin</strong> (responsible for the golden-yellow pigment), <strong>Picrocrocin</strong> (which provides the characteristic bitter taste), and <strong>Safranal</strong> (which produces the warm, hay-like aroma). Together, these chemicals determine the grade and pricing of saffron.</p>
+            <h3>The Karewa Plateau Chemistry</h3>
+            <p>Saffron bulbs (Crocus sativus corms) require highly porous yet nutrient-dense soil. Pampore's flat-topped plateaus, called Karewas, consist of lacustrine clay deposits left behind by ancient glacial lakes from the Pleistocene epoch. This clay is exceptionally rich in natural minerals—especially potassium, calcium, and magnesium. The porous structure allows rain water to drain away rapidly while maintaining cool moisture deep beneath the surface, preventing corm rot which destroys mass-market crops.</p>
+            <h3>Altitude, Thermal Stress, and Active Compounds</h3>
+            <p>Altitude acts as a natural biochemical catalyst. The extreme climate of the Kashmir Valley—characterized by freezing snowy winters, wet springs, and hot, dry summers—creates mild thermal stress. To survive these shifts, the corm produces heavy deposits of secondary metabolites as a defense mechanism. In saffron, this translates to high levels of crocin. While ISO 3632 standard classifies Grade 1 saffron as having a coloring index of 200 or higher, fresh Pampore Kashmiri Mogra saffron regularly tests between 220 and 240, yielding twice the color and therapeutic value of standard commercial imports.</p>
+        `
+    },
+    {
+        id: 2,
+        title: "Saffron in Pregnancy: Scientific Insights and Dosages",
+        category: "Health & Wellness",
+        categorySlug: "health",
+        date: "June 10, 2026",
+        img: "images/kashmiri-saffron-kahwa-gift-set.webp",
+        excerpt: "A look at the biological benefits of Kesar milk during pregnancy, muscle cramps relief, and medical safety thresholds.",
+        content: `
+            <p>For centuries, traditional family systems have recommended Kesar milk for expectant mothers. While folklore claims it affects a baby's skin tone (a myth with no genetic basis), modern clinical research does support several physiological benefits of saffron during pregnancy when consumed within safe medical guidelines.</p>
+            <h3>1. Modulation of Mood and Anxiety</h3>
+            <p>Pregnancy causes rapid hormonal changes that can lead to anxiety and mood swings. Saffron behaves as a natural mood elevator. Its active carotenoid compounds modulate the reuptake of serotonin in the brain, offering a mild antidepressant effect without the drowsiness associated with synthetic options.</p>
+            <h3>2. Antispasmodic Efficacy for Muscle Cramps</h3>
+            <p>As the uterus grows, pelvic muscles experience tension, leading to backaches and leg cramps. Saffron contains natural smooth-muscle relaxants that improve blood flow, soothe muscle fibers, and ease stomach bloating and morning sickness.</p>
+            <h3>Clinical Safety & Dosage</h3>
+            <p>Because saffron is a potent uterine stimulant, moderation is essential. Medical professionals advise avoiding saffron during the first trimester. From the second trimester onward, a safe dosage is 2 to 3 filaments (approx. 20-30mg) dissolved in warm milk daily. Consuming more than 5 grams daily can stimulate uterine contractions and is unsafe.</p>
+        `
+    },
+    {
+        id: 3,
+        title: "The Ultimate Guide to Saffron Purity: Cold Water Chemistry",
+        category: "Saffron Benefits",
+        categorySlug: "benefits",
+        date: "June 05, 2026",
+        img: "images/irani-sargol-saffron-premium-jar.webp",
+        excerpt: "Learn how to detect fake saffron treated with chemical dyes, shredded corn silk, or coconut fibers using basic home tests.",
+        content: `
+            <p>Because saffron is the most expensive spice in the world, it is a frequent target for food fraud. Unscrupulous brokers often dye corn silk, safflower, or plastic threads with artificial colorants (like Tartrazine or Sunset Yellow) and sell them as premium Kashmiri saffron. Here is how to test your purchase at home using simple water chemistry.</p>
+            <h3>1. The Cold Water Color test</h3>
+            <p>Drop 3 to 4 threads of saffron into a glass of room-temperature water and observe the rate and hue of color release:</p>
+            <ul>
+                <li><strong>Adulterated Saffron:</strong> The water turns a dark orange-red color within 5 to 10 seconds. This fast release occurs because synthetic food dyes wash off instantly. If you pull the threads out, they will have turned white or translucent, and will break apart when touched.</li>
+                <li><strong>Pure Saffron:</strong> The color releases slowly over 10 to 15 minutes, gradually turning the water a clear, luminous golden-yellow. The filaments remain deep crimson and hold their fibrous structure when pressed.</li>
+            </ul>
+            <h3>2. The Baking Soda Test</h3>
+            <p>Mix a small pinch of baking soda into your saffron-infused water. Pure saffron water remains yellow, whereas dyed saffron water reacts with the alkaline soda and turns a cloudy red or brown.</p>
+        `
+    },
+    {
+        id: 4,
+        title: "Saffron for Skin and Face: Natural Brightening Science",
+        category: "Health & Wellness",
+        categorySlug: "health",
+        date: "May 28, 2026",
+        img: "images/kashmiri-organic-saffron-premium-jar.webp",
+        excerpt: "Explore how the antioxidant compounds in saffron reduce skin pigmentation, fight UV damage, and clear blemishes.",
+        content: `
+            <p>Saffron has been a luxury skincare ingredient in royal cosmetic routines for centuries. Modern dermatological science confirms that saffron's active compounds have therapeutic benefits for skin brightening, anti-aging, and clearing blemishes.</p>
+            <h3>1. Protection Against UV Photo-Aging</h3>
+            <p>Saffron is rich in crocin and crocetin, which are powerful carotenoid antioxidants. These compounds neutralize free radicals caused by pollution and UV radiation. By reducing oxidative stress, saffron prevents collagen degradation, helping maintain skin elasticity and reducing early wrinkles.</p>
+            <h3>2. Hyperpigmentation & Melanin Control</h3>
+            <p>Hyperpigmentation occurs when skin cells produce excess melanin. Saffron contains natural compounds that gently inhibit tyrosinase, the enzyme responsible for melanin synthesis. Regular use of saffron-infused oils (like traditional Kumkumadi Tailam) helps fade dark spots, sun tan, and acne scars, promoting a clear, glowing skin tone.</p>
+        `
+    },
+    {
+        id: 5,
+        title: "Saffron for Body and Vitality: Fighting Inflammation",
+        category: "Health & Wellness",
+        categorySlug: "health",
+        date: "May 20, 2026",
+        img: "images/pampore-traditional-saffron-processing-drying.webp",
+        excerpt: "Discover how crocin reduces systemic inflammation, relieves muscle fatigue, and improves cellular energy.",
+        content: `
+            <p>Beyond its culinary appeal, saffron is a potent anti-inflammatory herb. Chronic low-grade inflammation is linked to muscle fatigue, joint pain, and metabolic imbalances. Saffron's bioactive compounds help protect cells from inflammatory damage.</p>
+            <h3>1. Easing Muscle Recovery and Fatigue</h3>
+            <p>Athletes and fitness enthusiasts use saffron to support recovery. Studies indicate that taking a small dose of saffron before workouts reduces muscle soreness and joint inflammation. Saffron improves oxygen delivery to muscle tissues, lowering fatigue during intense exercise.</p>
+            <h3>2. Supporting Cellular Metabolism</h3>
+            <p>The crocin and crocetin molecules in saffron help regulate blood sugar levels by improving insulin sensitivity. They support mitochondrial function, helping convert nutrients into cellular energy (ATP) more efficiently, which promotes daily vitality and heart health.</p>
+        `
+    },
+    {
+        id: 6,
+        title: "Traditional Kashmiri Kahwa: The Science of Warm Spices",
+        category: "Saffron Recipes",
+        categorySlug: "recipes",
+        date: "May 12, 2026",
+        img: "images/kashmiri-saffron-kahwa-gift-set.webp",
+        excerpt: "An analysis of the ingredients in Kashmir's iconic hot tea, its warming qualities, and digestive benefits.",
+        content: `
+            <p>Kashmiri Kahwa is a fragrant green tea brewed with saffron, green cardamom, cinnamon, and almonds. In Kashmir, it is a symbol of hospitality. It also serves as a functional wellness beverage designed to protect the body from cold mountain temperatures.</p>
+            <h3>Thermogenic and Digestive Properties</h3>
+            <p>Saffron is a natural thermogenic herb, meaning it slightly raises body temperature to stimulate metabolism. Green cardamom contains cineole, a compound that helps clear respiratory airways and eases chest congestion. Cinnamon contains cinnamaldehyde, which boasts antimicrobial properties and aids digestion by stimulating stomach lining enzymes.</p>
+            <p>Drinking Kahwa after meals helps break down fats, calms the digestive tract, and provides a rich dose of antioxidants that promote clear skin and daily energy.</p>
+        `
+    },
+    {
+        id: 7,
+        title: "Premium Kashmiri Mogra vs. Irani Sargol: Trimming Differences",
+        category: "Saffron Benefits",
+        categorySlug: "benefits",
+        date: "May 02, 2026",
+        img: "images/irani-sargol-saffron-premium-jar.webp",
+        excerpt: "What is the difference between Mogra and Sargol? A look at how trimming styles affect coloring strength.",
+        content: `
+            <p>Saffron is graded and priced based on how the stigma is trimmed and dried. Kashmiri Mogra and Irani Sargol are both Grade 1 saffron varieties, but their trimming styles and geographic origins create distinct differences in quality and coloring power.</p>
+            <h3>1. Kashmiri Premium Mogra Saffron</h3>
+            <p>Mogra is the highest quality cut of saffron. It consists of only the deep-red, thick tips of the saffron stigma, completely free from the yellow style. Kashmiri Mogra is hand-trimmed, resulting in long, flat filaments. Because of Pampore's Karewa soil, Kashmiri Mogra has a thick structure and a coloring index that regularly exceeds 220, giving it a strong flavor profile and deep red hue.</p>
+            <h3>2. Irani Premium Sargol Saffron</h3>
+            <p>Sargol (meaning 'top of the flower' in Persian) is the premier cut of Iranian saffron. Like Mogra, it contains only the red tips of the stigma. However, Irani Sargol threads are slightly thinner and shorter. While it is a Grade 1 saffron with a coloring index of 200+, it has a slightly lower coloring power than Kashmiri Mogra, making it a popular, budget-friendly option for daily cooking.</p>
+        `
+    },
+    {
+        id: 8,
+        title: "The Ultimate Guide to Saffron Storage: Humidity & Violet Glass",
+        category: "Saffron Benefits",
+        categorySlug: "benefits",
+        date: "April 25, 2026",
+        img: "images/kashmiri-organic-saffron-premium-jar.webp",
+        excerpt: "Why air, light, and humidity degrade saffron and how violet glass jars preserve active oils.",
+        content: `
+            <p>Saffron's active compounds—crocin (color), picrocrocin (taste), and safranal (aroma)—are highly sensitive to light, oxygen, and moisture. If stored incorrectly, a premium jar of saffron can lose its flavor and aroma within a few weeks. Here is how to protect your investment.</p>
+            <h3>The Danger of Light and Air</h3>
+            <p>Visible light triggers photo-oxidation, breaking down the delicate crocin molecules and turning red threads a dull brown. Exposure to oxygen causes the essential oils containing safranal to evaporate. At KesarHarvesters, we package our saffron in medical-grade violet glass jars. This glass blocks the entire visible light spectrum (except violet and UV-A), preserving the saffron's potency for up to 3 years.</p>
+            <h3>Avoid Kitchen Humidity</h3>
+            <p>Saffron is dry and highly hygroscopic, meaning it absorbs moisture from the air immediately. Never store saffron in the refrigerator; the condensation that forms when you open the jar will damp and spoil the threads. Keep your jar in a cool, dark kitchen cupboard away from the stove.</p>
+        `
+    },
+    {
+        id: 9,
+        title: "How to Bloom Saffron for Maximum Flavor Release",
+        category: "Saffron Recipes",
+        categorySlug: "recipes",
+        date: "April 18, 2026",
+        img: "images/irani-sargol-saffron-premium-jar.webp",
+        excerpt: "Stop throwing raw saffron threads into boiling oil. Learn the chef-approved ice cube blooming technique.",
+        content: `
+            <p>Throwing raw saffron filaments directly into hot oil or boiling water can lock the flavor compounds inside the thread, reducing its coloring power. To get the most out of your saffron, you need to bloom it. Here are two techniques used by professional chefs.</p>
+            <h3>1. The Ice Cube Blooming Method</h3>
+            <p>Place 4 to 5 saffron threads on a small plate and grind them into a fine powder with a mortar and pestle. Drop a single ice cube on top of the powder and let it melt slowly at room temperature. This cold extraction process releases a vibrant orange-red color and preserves the delicate aroma compounds that hot water can destroy.</p>
+            <h3>2. The Warm Milk Infusion</h3>
+            <p>If preparing rice, kheer, or biryani, dissolve the crushed saffron in warm milk (not boiling) and let it steep for 20 minutes. This creates a rich golden liquid that distributes the flavor and color evenly throughout your dish.</p>
+        `
+    },
+    {
+        id: 10,
+        title: "Saffron Gifting: A Guide to Festive Corporate Packs",
+        category: "Gift Ideas",
+        categorySlug: "gifts",
+        date: "April 10, 2026",
+        img: "images/kashmiri-saffron-kahwa-gift-set.webp",
+        excerpt: "Explore how premium companies are replacing generic sweets with organic, farmer-direct gift boxes.",
+        content: `
+            <p>Corporate gifting is undergoing a major shift. Modern companies are moving away from generic plastic-wrapped sweets and processed food hampers, prioritizing gifts that promote wellness, sustainability, and support local communities.</p>
+            <h3>The Prestige of Organic Saffron</h3>
+            <p>Saffron carries an undeniable prestige. As the world's most expensive spice, it shows deep respect to the recipient. Unlike sweets, it has a long shelf life (up to 3 years in violet glass) and promotes healthy living, which aligns with modern corporate wellness values.</p>
+            <p>At KesarHarvesters, we offer customized corporate packaging, laser-engraving company logos onto polished walnut chests to create a premium, memorable gift box.</p>
+        `
+    },
+    {
+        id: 11,
+        title: "Saffron for Face Care: DIY Ayurvedic Packs",
+        category: "Health & Wellness",
+        categorySlug: "health",
+        date: "April 02, 2026",
+        img: "images/kashmiri-organic-saffron-premium-jar.webp",
+        excerpt: "Learn how to make skin brightening face masks and Kumkumadi night serums using pure saffron threads.",
+        content: `
+            <p>Saffron has been a staple in royal Indian beauty routines for centuries. Princesses and queens used it in bath water and face packs to achieve a radiant complexion. Today, you can easily recreate these Ayurvedic beauty treatments at home.</p>
+            <h3>1. Saffron and Honey Skin Mask</h3>
+            <p>Mix 1 tablespoon of raw organic honey with 3 crushed filaments of Kashmiri Mogra saffron. Let it sit for 10 minutes so the saffron releases its compounds, then apply to the face for 15 minutes. This mask hydrates the skin, reduces redness, and helps clear blemishes.</p>
+            <h3>2. Saffron and Milk Clarifying Pack</h3>
+            <p>Soak 4 saffron threads in 2 tablespoons of raw milk for 2 hours. Apply the golden liquid to your face and neck with a cotton ball, rinsing off after 20 minutes. The lactic acid in the milk combines with saffron's antioxidants to gently exfoliate and brighten the skin.</p>
+        `
+    },
+    {
+        id: 12,
+        title: "The GI Tag: Protecting Kashmir Saffron from Cheap Imports",
+        category: "Pampore Heritage",
+        categorySlug: "heritage",
+        date: "March 25, 2026",
+        img: "images/pampore-traditional-saffron-processing-drying.webp",
+        excerpt: "What is the Geographical Indication tag and how does it protect Pampore farmers and consumers?",
+        content: `
+            <p>For years, cheap Iranian saffron was imported, dyed, and sold as 'Kashmiri Saffron' in retail stores, driving down prices and forcing many local Pampore farmers to abandon their fields. To protect the region's heritage, the government issued a Geographical Indication (GI) tag for Kashmir Saffron.</p>
+            <h3>Guaranteed Regional Origin</h3>
+            <p>A GI tag is an intellectual property right that guarantees a product is grown in a specific region and possesses qualities unique to that geography. Saffron labeled with the Kashmir Saffron GI tag is certified to have been grown in Pampore and pass strict laboratory purity tests, protecting local family farms and consumers alike.</p>
+        `
+    },
+    {
+        id: 13,
+        title: "Saffron for Sleep: Natural Insomnia Remedies",
+        category: "Health & Wellness",
+        categorySlug: "health",
+        date: "March 15, 2026",
+        img: "images/irani-sargol-saffron-premium-jar.webp",
+        excerpt: "Explore clinical trials on saffron extract for improving REM sleep cycles and reducing insomnia.",
+        content: `
+            <p>If you struggle with insomnia or poor sleep quality, saffron may offer a natural remedy. Clinical studies indicate that saffron extract can help improve sleep depth and reduce the time it takes to fall asleep.</p>
+            <h3>Increasing Melatonin Production</h3>
+            <p>Saffron contains active compounds that help quiet the nervous system, reducing anxiety and promoting relaxation. Drinking a warm cup of saffron milk an hour before bed supports natural melatonin production, helping you enjoy deep, restorative sleep without the grogginess of sleep aids.</p>
+        `
+    },
+    {
+        id: 14,
+        title: "Saffron Infused Honeys: A Modern Superfood Trend",
+        category: "Gift Ideas",
+        categorySlug: "gifts",
+        date: "March 05, 2026",
+        img: "images/kashmiri-saffron-kahwa-gift-set.webp",
+        excerpt: "How combining raw honey with premium saffron creates a powerful immunity-boosting elixir.",
+        content: `
+            <p>Saffron-infused honey is a popular health food trend. Combining the antibacterial properties of raw organic honey with the antioxidant-rich compounds of saffron creates a powerful immunity-boosting elixir.</p>
+            <p>To make it at home, add 15 crushed saffron threads to a jar of raw forest honey. Let it infuse in a warm place for two weeks, stirring occasionally. The resulting honey has a beautiful golden color and a complex flavor profile, perfect for sweetening tea or drizzling over toast.</p>
+        `
+    },
+    {
+        id: 15,
+        title: "The Manual Weeding Challenge in Pampore Farms",
+        category: "Farming Stories",
+        categorySlug: "stories",
+        date: "Feb 24, 2026",
+        img: "images/pampore-traditional-saffron-processing-drying.webp",
+        excerpt: "Why KesarHarvesters rejects chemical weed sprays, relying instead on traditional hand-weeding.",
+        content: `
+            <p>Weeds are a major challenge in saffron farming. Saffron corms grow close to the surface, and aggressive weeds can quickly starve the bulbs of nutrients. While commercial farms use chemical herbicides to clear weeds quickly, we refuse to spray our fields.</p>
+            <h3>Protecting the Soil Ecology</h3>
+            <p>Instead of chemical sprays, we weed our plots manually using traditional short-handled wooden hoes. This manual process takes weeks of labor but protects the soil ecology and ensures our corms are nourished only by natural Pampore clay, free from pesticide residues.</p>
+        `
+    },
+    {
+        id: 16,
+        title: "Saffron for Mood: Saffron as the 'Sunshine Spice'",
+        category: "Health & Wellness",
+        categorySlug: "health",
+        date: "Feb 15, 2026",
+        img: "images/kashmiri-organic-saffron-premium-jar.webp",
+        excerpt: "How saffron's active compounds function as natural serotonin regulators.",
+        content: `
+            <p>Saffron has earned the title of the 'sunshine spice' due to its ability to improve mood and reduce anxiety. Clinical trials comparing saffron extract to standard antidepressants show comparable results for mild-to-moderate depression.</p>
+            <p>The crocin and crocetin molecules in saffron help regulate serotonin, dopamine, and norepinephrine levels in the brain, helping you feel more positive and energized throughout the day.</p>
+        `
+    },
+    {
+        id: 17,
+        title: "The History of Saffron Cultivation in Pampore",
+        category: "Pampore Heritage",
+        categorySlug: "heritage",
+        date: "Feb 05, 2026",
+        img: "images/pampore-traditional-saffron-processing-drying.webp",
+        excerpt: "Explore the ancient origins of saffron in the Kashmir Valley, dating back to 500 BC.",
+        content: `
+            <p>Saffron has been grown in the Kashmir Valley for over two thousand years. Historical accounts suggest saffron corms were introduced to the region by Persian traders around 500 BC, while local legends attribute its arrival to two Sufi saints.</p>
+            <p>Over the centuries, Pampore became the heart of Kashmiri saffron cultivation, with its plateaus providing the ideal soil and climate to grow this highly prized spice.</p>
+        `
+    },
+    {
+        id: 18,
+        title: "Diwali Corporate Packs: Modern Gifting Etiquette",
+        category: "Gift Ideas",
+        categorySlug: "gifts",
+        date: "Jan 28, 2026",
+        img: "images/kashmiri-saffron-kahwa-gift-set.webp",
+        excerpt: "A guide to selecting sustainable, high-value corporate gifts for clients during the festive season.",
+        content: `
+            <p>Selecting the right corporate gift during Diwali or Eid is an art. Modern businesses are moving away from disposable plastic items, choosing instead high-value, sustainable gifts that promote wellness.</p>
+            <p>A gift box of pure Kashmiri saffron represents health and prosperity, making it a thoughtful, elegant choice that shows deep appreciation to your business partners.</p>
+        `
+    },
+    {
+        id: 19,
+        title: "Saffron Infused Biryanis: Culinary Tips for Royal Rice",
+        category: "Saffron Recipes",
+        categorySlug: "recipes",
+        date: "Jan 18, 2026",
+        img: "images/irani-sargol-saffron-premium-jar.webp",
+        excerpt: "Learn how to use saffron milk to achieve the iconic dual-color grains in royal biryanis.",
+        content: `
+            <p>Saffron is the signature ingredient in royal biryanis. Beyond its warm aroma, it creates the beautiful visual contrast of white and golden-yellow grains in the rice.</p>
+            <p>To achieve this, chefs drizzle saffron milk over the rice during the final 'dum' stage of cooking. This concentrates the color and flavor, infusing the dish with saffron's distinct aroma.</p>
+        `
+    },
+    {
+        id: 20,
+        title: "Supporting Saffron Cooperatives: The Direct E-Commerce Movement",
+        category: "Farming Stories",
+        categorySlug: "stories",
+        date: "Jan 05, 2026",
+        img: "images/pampore-traditional-saffron-processing-drying.webp",
+        excerpt: "How direct e-commerce helps Pampore farmers receive fair wages and escape exploitative broker systems.",
+        content: `
+            <p>For decades, saffron farmers in Pampore were dependent on B2B brokers who bought their harvest at low rates and sold it at high markups to city brands, leaving farmers with minimal profit.</p>
+            <p>E-commerce is changing this dynamic. By selling directly through <strong>KesarHarvesters</strong>, we receive fair compensation for our harvest, enabling us to invest in sustainable farming techniques and support the local Pampore community.</p>
+        `
+    }
+];
+
+const RECIPES = [
+    {
+        id: "kahwa",
+        title: "Royal Kashmiri Kahwa",
+        prepTime: "5 mins",
+        cookTime: "10 mins",
+        servings: "4 Cups",
+        img: "images/kashmiri-organic-saffron-premium-jar.webp",
+        description: "The traditional golden saffron-infused green tea of Kashmir, brewed with warming spices and crushed almonds.",
+        ingredients: [
+            "4 Cups Water",
+            "1 tsp Kashmiri Green Tea leaves",
+            "10-12 Filaments of KesarHarvesters Kashmiri Premium Saffron",
+            "2 Cardamom pods (crushed)",
+            "1 small stick of Cinnamon",
+            "2 tbsp Almonds (slivered or crushed)",
+            "2 tsp Honey or Sugar (to taste)"
+        ],
+        instructions: [
+            "In a saucepan, bring 4 cups of water to a boil along with the cinnamon, crushed cardamom, and saffron threads.",
+            "Simmer on low heat for 5 minutes until the spices release their aroma and the water turns golden-yellow.",
+            "Turn off the heat and add the green tea leaves. Cover the pan and let it steep for 2 to 3 minutes.",
+            "Strain the tea into cups. Add honey or sugar to taste.",
+            "Garnish with crushed almonds and serve warm."
+        ]
+    },
+    {
+        id: "milk",
+        title: "Kesar Doodh (Saffron Milk)",
+        prepTime: "2 mins",
+        cookTime: "8 mins",
+        servings: "2 Servings",
+        img: "images/kashmiri-saffron-kahwa-gift-set.webp",
+        description: "A nourishing, warming beverage infused with pure saffron, green cardamom, and nuts.",
+        ingredients: [
+            "2 Cups Whole Milk",
+            "6-8 Filaments of KesarHarvesters Kashmiri Premium Saffron",
+            "1 tbsp Sugar",
+            "1/4 tsp Cardamom powder",
+            "1 tbsp Pistachios and Almonds (chopped)"
+        ],
+        instructions: [
+            "In a heavy-bottomed pan, bring the milk to a boil on medium heat.",
+            "Lower the heat and add sugar, cardamom powder, chopped nuts, and saffron threads.",
+            "Simmer for 5 to 7 minutes, stirring occasionally, until the milk turns a rich cream color.",
+            "Pour into glasses, garnish with a few extra saffron threads, and serve warm."
+        ]
+    },
+    {
+        id: "rice",
+        title: "Premium Saffron Rice (Zafrani Pulao)",
+        prepTime: "20 mins",
+        cookTime: "20 mins",
+        servings: "4 Servings",
+        img: "images/irani-sargol-saffron-premium-jar.webp",
+        description: "Fragrant basmati rice bloomed with pure saffron, ghee, and aromatic whole spices.",
+        ingredients: [
+            "1 Cup Basmati Rice (washed & soaked for 20 mins)",
+            "2 Cups Warm Water",
+            "15-20 Filaments of KesarHarvesters Kashmiri Premium Saffron (bloomed in 2 tbsp warm milk)",
+            "2 tbsp Ghee",
+            "2 Cloves, 1 Bay Leaf, 1 Cardamom pod",
+            "Salt to taste",
+            "1 tbsp Cashews & Raisins (fried in ghee)"
+        ],
+        instructions: [
+            "Bloom the saffron threads in 2 tablespoons of warm milk and set aside.",
+            "Heat ghee in a pot. Add cloves, bay leaf, and cardamom, frying for 30 seconds.",
+            "Add the soaked rice and gently saute for 1 minute without breaking the grains.",
+            "Add water, salt, and bring to a boil. Lower the heat, cover, and cook for 10 minutes.",
+            "Pour the saffron milk over the rice. Cover and cook on low heat for another 5 minutes.",
+            "Fluff with a fork, garnish with fried cashews and raisins, and serve."
+        ]
+    },
+    {
+        id: "kheer",
+        title: "Zafrani Kheer (Saffron Rice Pudding)",
+        prepTime: "10 mins",
+        cookTime: "40 mins",
+        servings: "6 Servings",
+        img: "images/kashmiri-saffron-kahwa-gift-set.webp",
+        description: "Slow-cooked rice pudding flavored with saffron, cardamom, and nuts.",
+        ingredients: [
+            "1 Litre Full Cream Milk",
+            "1/4 Cup Basmati Rice (washed & soaked for 30 mins)",
+            "1/2 Cup Sugar",
+            "10-12 Filaments of KesarHarvesters Kashmiri Premium Saffron",
+            "1/2 tsp Cardamom powder",
+            "2 tbsp Mixed Nuts (sliced)"
+        ],
+        instructions: [
+            "Drain the soaked rice and crush it slightly with your fingers.",
+            "In a heavy pot, bring the milk to a boil. Add the crushed rice and mix well.",
+            "Cook on low heat for 25 to 30 minutes, stirring frequently to prevent burning, until the rice is soft and the milk thickens.",
+            "Add sugar, saffron threads, and cardamom powder. Simmer for another 10 minutes.",
+            "Garnish with sliced nuts. Serve warm or chilled."
+        ]
+    },
+    {
+        id: "tea",
+        title: "Saffron Ginger Tea",
+        prepTime: "2 mins",
+        cookTime: "8 mins",
+        servings: "2 Cups",
+        img: "images/kashmiri-organic-saffron-premium-jar.webp",
+        description: "A soothing black tea brewed with fresh ginger and saffron threads.",
+        ingredients: [
+            "2 Cups Water",
+            "1 tsp Black Tea leaves",
+            "6-8 Filaments of KesarHarvesters Kashmiri Premium Saffron",
+            "1/2 inch Ginger (sliced)",
+            "Honey (to taste)"
+        ],
+        instructions: [
+            "Bring water and sliced ginger to a boil in a saucepan. Simmer for 3 minutes.",
+            "Add the black tea leaves and saffron threads. Turn off the heat.",
+            "Cover and let steep for 3 minutes.",
+            "Strain into cups, stir in honey to taste, and serve."
+        ]
+    },
+    {
+        id: "desserts",
+        title: "Zafrani Shahi Tukda",
+        prepTime: "15 mins",
+        cookTime: "25 mins",
+        servings: "4 Servings",
+        img: "images/irani-sargol-saffron-premium-jar.webp",
+        description: "Crispy ghee-fried bread soaked in cardamom sugar syrup and topped with rich saffron rabri.",
+        ingredients: [
+            "4 Bread slices (cut into triangles)",
+            "Ghee for deep frying",
+            "1 Cup Rabri (unsweetened)",
+            "10 Filaments of KesarHarvesters Kashmiri Premium Saffron",
+            "1/2 Cup Sugar",
+            "1/2 Cup Water",
+            "1 tbsp Pistachios (crushed)"
+        ],
+        instructions: [
+            "In a pan, boil sugar and water together for 5 minutes to create a single-thread syrup.",
+            "Bloom the saffron in 1 tablespoon of warm water and stir it into the sugar syrup.",
+            "Heat ghee in a pan and fry bread triangles until golden and crispy.",
+            "Dip the crispy bread into the warm saffron sugar syrup for 10 seconds, then place on a serving plate.",
+            "Drizzle rabri over the bread slices, garnish with crushed pistachios, and serve."
+        ]
+    }
+];
