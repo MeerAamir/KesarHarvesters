@@ -321,7 +321,6 @@ const FUTURE_PRODUCTS = {
 };
 
 const SHIPPING_FEE_DEFAULT = 99;
-const SHIPPING_THRESHOLD = 1200;
 
 // --- STATE MANAGEMENT ---
 let state = {
@@ -567,44 +566,13 @@ function renderCart() {
         itemsContainer.appendChild(row);
     });
     
-    const activeShippingFee = subtotal >= SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE_DEFAULT;
+    const activeShippingFee = subtotal === 0 ? 0 : SHIPPING_FEE_DEFAULT;
     const grandTotal = subtotal + activeShippingFee;
     
     if (subtotalVal) subtotalVal.textContent = `₹${subtotal}`;
-    if (shippingVal) shippingVal.textContent = activeShippingFee === 0 ? 'FREE' : `₹${activeShippingFee}`;
+    if (shippingVal) shippingVal.textContent = `₹${activeShippingFee}`;
     if (grandVal) grandVal.textContent = `₹${grandTotal}`;
     if (countBadge) countBadge.textContent = totalItems;
-
-    // Dynamically update the shipping progress bar inside the cart drawer
-    const shippingBar = document.getElementById('dynamic-shipping-bar');
-    if (shippingBar) {
-        if (subtotal === 0) {
-            shippingBar.innerHTML = `
-                <div style="font-weight: 600; color: var(--color-primary);">Free Shipping on orders above ₹${SHIPPING_THRESHOLD}!</div>
-                <div style="width: 100%; height: 6px; background-color: rgba(0,0,0,0.06); border-radius: 3px; margin-top: 8px; overflow: hidden;">
-                    <div style="width: 0%; height: 100%; background-color: var(--color-secondary); transition: width 0.4s ease;"></div>
-                </div>
-            `;
-        } else if (subtotal < SHIPPING_THRESHOLD) {
-            const needed = SHIPPING_THRESHOLD - subtotal;
-            const pct = Math.min((subtotal / SHIPPING_THRESHOLD) * 100, 100);
-            shippingBar.innerHTML = `
-                <div style="font-weight: 500;">Add <strong style="color:var(--color-primary)">₹${needed}</strong> more to qualify for <strong style="color:#2e7d32">FREE SHIPPING</strong>!</div>
-                <div style="width: 100%; height: 6px; background-color: rgba(0,0,0,0.06); border-radius: 3px; margin-top: 8px; overflow: hidden;">
-                    <div style="width: ${pct}%; height: 100%; background-color: var(--color-secondary); transition: width 0.4s ease;"></div>
-                </div>
-            `;
-        } else {
-            shippingBar.innerHTML = `
-                <div style="font-weight: 600; color: #2e7d32; display: flex; align-items: center; justify-content: center; gap: 6px;">
-                    🎉 You qualify for FREE SHIPPING!
-                </div>
-                <div style="width: 100%; height: 6px; background-color: #e8f5e9; border-radius: 3px; margin-top: 8px; overflow: hidden;">
-                    <div style="width: 100%; height: 100%; background-color: #2e7d32; transition: width 0.4s ease;"></div>
-                </div>
-            `;
-        }
-    }
 }
 
 // --- CHECKOUT & ORDER REDIRECTS ---
@@ -651,9 +619,9 @@ function dispatchOrder(event) {
         }
     });
     
-    const activeShippingFee = subtotal >= SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE_DEFAULT;
+    const activeShippingFee = SHIPPING_FEE_DEFAULT;
     const total = subtotal + activeShippingFee;
-    orderDetails += `\nDelivery Charge: ${activeShippingFee === 0 ? 'FREE' : `₹${activeShippingFee}`}\n`;
+    orderDetails += `\nDelivery Charge: ₹${activeShippingFee}\n`;
     orderDetails += `===============================\n`;
     orderDetails += `*Grand Total:* ₹${total}\n\n`;
     orderDetails += `*Payment Status:* Pending UPI (Pay to 8825034663@yescred)\n`;
