@@ -843,7 +843,7 @@
             </div>
         </div>
         
-        <div class="shipping-indicator">
+        <div class="shipping-indicator" id="dynamic-shipping-bar" style="background-color: var(--color-bg-dark); padding: 12px 20px; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 12px; text-align: center; color: var(--color-text);">
             <i data-lucide="truck" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-right: 4px;"></i>
             Flat parcel shipping fee: <strong>₹99</strong>
         </div>
@@ -891,7 +891,7 @@
         </div>
 
         <!-- Order Success Block -->
-        <div class="order-success-panel" style="display: none; padding: 24px; text-align: center; overflow-y: auto; max-height: 80vh;">
+        <div class="order-success-panel" style="display: none; padding: 24px; text-align: center; overflow-y: auto; flex-grow: 1;">
             <div style="color: #25D366; margin-bottom: 15px;">
                 <i data-lucide="check-circle" style="width: 50px; height: 50px; margin: 0 auto; display: block;"></i>
             </div>
@@ -904,9 +904,22 @@
                 <!-- QR Code Image -->
             </div>
             
+            <!-- Specific UPI App Chooser to prevent WhatsApp pay hijack on iOS/Android -->
             <div style="margin-top: 10px; margin-bottom: 20px;">
-                <a id="upi-pay-app-btn" href="#" class="btn btn-gold" style="width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
-                    <i data-lucide="external-link" style="width: 16px; height: 16px;"></i> Pay via UPI App (GPay/PhonePe)
+                <p style="font-size: 11px; font-weight: 700; color: var(--color-primary); text-transform: uppercase; margin-bottom: 8px; text-align: center; letter-spacing: 0.05em;">Pay directly using your UPI App:</p>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px;">
+                    <a id="upi-gpay-btn" href="#" class="btn-upi-app" style="background-color: #f1f3f4; color: #1a73e8; border: 1px solid #dadce0; border-radius: 12px; padding: 10px 5px; font-size: 11px; font-weight: bold; text-align: center; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;">
+                        <span style="font-size: 16px;">🔵</span> GPay
+                    </a>
+                    <a id="upi-phonepe-btn" href="#" class="btn-upi-app" style="background-color: #f1ecf7; color: #5f259f; border: 1px solid #e1d5eb; border-radius: 12px; padding: 10px 5px; font-size: 11px; font-weight: bold; text-align: center; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;">
+                        <span style="font-size: 16px;">🟣</span> PhonePe
+                    </a>
+                    <a id="upi-paytm-btn" href="#" class="btn-upi-app" style="background-color: #e8f5fa; color: #00b9f5; border: 1px solid #bfe3f7; border-radius: 12px; padding: 10px 5px; font-size: 11px; font-weight: bold; text-align: center; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;">
+                        <span style="font-size: 16px;">🔵</span> Paytm
+                    </a>
+                </div>
+                <a id="upi-pay-app-btn" href="#" class="btn btn-gold" style="width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 12px; padding: 10px 16px;">
+                    <i data-lucide="external-link" style="width: 14px; height: 14px;"></i> Other UPI App (CRED/BHIM)
                 </a>
             </div>
             

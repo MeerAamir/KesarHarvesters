@@ -30,7 +30,7 @@ const PRODUCTS = {
         id: 'kashmiri-2g',
         slug: 'kashmiri-organic-saffron-2g',
         name: 'Kashmiri Premium Saffron (2g)',
-        price: 958,
+        price: 899,
         weight: '2 Grams',
         origin: 'Kashmiri',
         category: 'Premium Mogra',
@@ -51,7 +51,7 @@ const PRODUCTS = {
         id: 'kashmiri-5g',
         slug: 'kashmiri-organic-saffron-5g',
         name: 'Kashmiri Premium Saffron (5g)',
-        price: 2395,
+        price: 1999,
         weight: '5 Grams',
         origin: 'Kashmiri',
         category: 'Premium Mogra',
@@ -72,7 +72,7 @@ const PRODUCTS = {
         id: 'kashmiri-10g',
         slug: 'kashmiri-organic-saffron-10g',
         name: 'Kashmiri Premium Saffron (10g)',
-        price: 4790,
+        price: 3799,
         weight: '10 Grams',
         origin: 'Kashmiri',
         category: 'Premium Mogra',
@@ -93,7 +93,7 @@ const PRODUCTS = {
         id: 'kashmiri-20g',
         slug: 'kashmiri-organic-saffron-20g',
         name: 'Kashmiri Premium Saffron (20g)',
-        price: 9580,
+        price: 6999,
         weight: '20 Grams',
         origin: 'Kashmiri',
         category: 'Premium Mogra',
@@ -114,7 +114,7 @@ const PRODUCTS = {
         id: 'kashmiri-50g',
         slug: 'kashmiri-organic-saffron-50g',
         name: 'Kashmiri Premium Saffron (50g)',
-        price: 23950,
+        price: 15999,
         weight: '50 Grams',
         origin: 'Kashmiri',
         category: 'Premium Mogra',
@@ -158,7 +158,7 @@ const PRODUCTS = {
         id: 'irani-2g',
         slug: 'irani-sargol-saffron-2g',
         name: 'Irani Premium Saffron (2g)',
-        price: 758,
+        price: 699,
         weight: '2 Grams',
         origin: 'Irani',
         category: 'Premium Sargol',
@@ -179,7 +179,7 @@ const PRODUCTS = {
         id: 'irani-5g',
         slug: 'irani-sargol-saffron-5g',
         name: 'Irani Premium Saffron (5g)',
-        price: 1895,
+        price: 1599,
         weight: '5 Grams',
         origin: 'Irani',
         category: 'Premium Sargol',
@@ -200,7 +200,7 @@ const PRODUCTS = {
         id: 'irani-10g',
         slug: 'irani-sargol-saffron-10g',
         name: 'Irani Premium Saffron (10g)',
-        price: 3790,
+        price: 2999,
         weight: '10 Grams',
         origin: 'Irani',
         category: 'Premium Sargol',
@@ -221,7 +221,7 @@ const PRODUCTS = {
         id: 'irani-20g',
         slug: 'irani-sargol-saffron-20g',
         name: 'Irani Premium Saffron (20g)',
-        price: 7580,
+        price: 5499,
         weight: '20 Grams',
         origin: 'Irani',
         category: 'Premium Sargol',
@@ -242,7 +242,7 @@ const PRODUCTS = {
         id: 'irani-50g',
         slug: 'irani-sargol-saffron-50g',
         name: 'Irani Premium Saffron (50g)',
-        price: 18950,
+        price: 12999,
         weight: '50 Grams',
         origin: 'Irani',
         category: 'Premium Sargol',
@@ -320,7 +320,8 @@ const FUTURE_PRODUCTS = {
     }
 };
 
-const SHIPPING_FEE = 99;
+const SHIPPING_FEE_DEFAULT = 99;
+const SHIPPING_THRESHOLD = 1200;
 
 // --- STATE MANAGEMENT ---
 let state = {
@@ -566,12 +567,44 @@ function renderCart() {
         itemsContainer.appendChild(row);
     });
     
-    const grandTotal = subtotal + SHIPPING_FEE;
+    const activeShippingFee = subtotal >= SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE_DEFAULT;
+    const grandTotal = subtotal + activeShippingFee;
     
     if (subtotalVal) subtotalVal.textContent = `₹${subtotal}`;
-    if (shippingVal) shippingVal.textContent = `₹${SHIPPING_FEE}`;
+    if (shippingVal) shippingVal.textContent = activeShippingFee === 0 ? 'FREE' : `₹${activeShippingFee}`;
     if (grandVal) grandVal.textContent = `₹${grandTotal}`;
     if (countBadge) countBadge.textContent = totalItems;
+
+    // Dynamically update the shipping progress bar inside the cart drawer
+    const shippingBar = document.getElementById('dynamic-shipping-bar');
+    if (shippingBar) {
+        if (subtotal === 0) {
+            shippingBar.innerHTML = `
+                <div style="font-weight: 600; color: var(--color-primary);">Free Shipping on orders above ₹${SHIPPING_THRESHOLD}!</div>
+                <div style="width: 100%; height: 6px; background-color: rgba(0,0,0,0.06); border-radius: 3px; margin-top: 8px; overflow: hidden;">
+                    <div style="width: 0%; height: 100%; background-color: var(--color-secondary); transition: width 0.4s ease;"></div>
+                </div>
+            `;
+        } else if (subtotal < SHIPPING_THRESHOLD) {
+            const needed = SHIPPING_THRESHOLD - subtotal;
+            const pct = Math.min((subtotal / SHIPPING_THRESHOLD) * 100, 100);
+            shippingBar.innerHTML = `
+                <div style="font-weight: 500;">Add <strong style="color:var(--color-primary)">₹${needed}</strong> more to qualify for <strong style="color:#2e7d32">FREE SHIPPING</strong>!</div>
+                <div style="width: 100%; height: 6px; background-color: rgba(0,0,0,0.06); border-radius: 3px; margin-top: 8px; overflow: hidden;">
+                    <div style="width: ${pct}%; height: 100%; background-color: var(--color-secondary); transition: width 0.4s ease;"></div>
+                </div>
+            `;
+        } else {
+            shippingBar.innerHTML = `
+                <div style="font-weight: 600; color: #2e7d32; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                    🎉 You qualify for FREE SHIPPING!
+                </div>
+                <div style="width: 100%; height: 6px; background-color: #e8f5e9; border-radius: 3px; margin-top: 8px; overflow: hidden;">
+                    <div style="width: 100%; height: 100%; background-color: #2e7d32; transition: width 0.4s ease;"></div>
+                </div>
+            `;
+        }
+    }
 }
 
 // --- CHECKOUT & ORDER REDIRECTS ---
@@ -618,8 +651,9 @@ function dispatchOrder(event) {
         }
     });
     
-    const total = subtotal + SHIPPING_FEE;
-    orderDetails += `\nDelivery Charge: ₹${SHIPPING_FEE}\n`;
+    const activeShippingFee = subtotal >= SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE_DEFAULT;
+    const total = subtotal + activeShippingFee;
+    orderDetails += `\nDelivery Charge: ${activeShippingFee === 0 ? 'FREE' : `₹${activeShippingFee}`}\n`;
     orderDetails += `===============================\n`;
     orderDetails += `*Grand Total:* ₹${total}\n\n`;
     orderDetails += `*Payment Status:* Pending UPI (Pay to 8825034663@yescred)\n`;
@@ -649,25 +683,51 @@ function showOrderSuccess(orderId, total, orderDetails, email) {
             qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiLink)}" alt="Scan to Pay ₹${total}" style="display: block; width: 150px; height: 150px; margin: 0 auto; border-radius: 8px;">`;
         }
         
-        // Configure Mobile UPI Button with Desktop Check
+        // Configure Specific UPI App Buttons with Desktop Checks
+        const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        const gpayBtn = document.getElementById('upi-gpay-btn');
+        if (gpayBtn) {
+            gpayBtn.href = `tez://upi/pay?pa=8825034663@yescred&pn=KesarHarvesters&am=${total}&cu=INR&tn=Order_${orderId}`;
+            gpayBtn.onclick = (e) => {
+                if (!isMobileDevice) {
+                    e.preventDefault();
+                    alert("Google Pay link is only supported on mobile devices. Please scan the QR Code on your screen to pay.");
+                }
+            };
+        }
+        
+        const phonepeBtn = document.getElementById('upi-phonepe-btn');
+        if (phonepeBtn) {
+            phonepeBtn.href = `phonepe://pay?pa=8825034663@yescred&pn=KesarHarvesters&am=${total}&cu=INR&tn=Order_${orderId}`;
+            phonepeBtn.onclick = (e) => {
+                if (!isMobileDevice) {
+                    e.preventDefault();
+                    alert("PhonePe link is only supported on mobile devices. Please scan the QR Code on your screen to pay.");
+                }
+            };
+        }
+        
+        const paytmBtn = document.getElementById('upi-paytm-btn');
+        if (paytmBtn) {
+            paytmBtn.href = `paytmmp://pay?pa=8825034663@yescred&pn=KesarHarvesters&am=${total}&cu=INR&tn=Order_${orderId}`;
+            paytmBtn.onclick = (e) => {
+                if (!isMobileDevice) {
+                    e.preventDefault();
+                    alert("Paytm link is only supported on mobile devices. Please scan the QR Code on your screen to pay.");
+                }
+            };
+        }
+        
         const upiPayBtn = document.getElementById('upi-pay-app-btn');
         if (upiPayBtn) {
             upiPayBtn.onclick = (e) => {
-                const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
                 if (!isMobileDevice) {
                     e.preventDefault();
                     alert("Pay via UPI App is only supported on mobile devices. Please scan the QR Code on your screen using GPay, PhonePe, Paytm, or BHIM to complete your payment, or open this site on your mobile phone.");
                 }
             };
             upiPayBtn.href = upiLink;
-        }
-        
-        // Auto-redirect to UPI chooser on mobile devices for seamless checkout payment
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        if (isMobile) {
-            setTimeout(() => {
-                window.location.href = upiLink;
-            }, 800);
         }
         
         // Configure WhatsApp Confirm Button
@@ -1064,7 +1124,21 @@ function renderProductDetailPage() {
             const btn = document.createElement('a');
             btn.href = `product.html?product=${v.slug}`;
             btn.className = v.id === prod.id ? 'cat-chip active' : 'cat-chip';
-            btn.textContent = v.weight;
+            
+            // Calculate savings percentage compared to the base 1g price to incentivize bulk buying
+            const baseKey = currentOrigin === 'Kashmiri' ? 'kashmiri-1g' : 'irani-1g';
+            const base1gPrice = PRODUCTS[baseKey] ? PRODUCTS[baseKey].price : 479;
+            const weightVal = parseFloat(v.weight);
+            const standardProportionalPrice = base1gPrice * weightVal;
+            const savings = standardProportionalPrice - v.price;
+            const savingsPct = Math.round((savings / standardProportionalPrice) * 100);
+            
+            let labelText = v.weight;
+            if (savingsPct > 0) {
+                labelText += ` (Save ${savingsPct}%)`;
+            }
+            
+            btn.textContent = labelText;
             btn.style.margin = '4px';
             variantsContainer.appendChild(btn);
         });
