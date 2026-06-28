@@ -1241,7 +1241,7 @@ footer {
 }
 
 .footer-logo-side p {
-    color: var(--color-text-muted);
+    color: rgba(250, 248, 243, 0.7);
     font-size: 14px;
     margin: 20px 0;
     max-width: 320px;
