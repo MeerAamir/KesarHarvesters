@@ -478,6 +478,11 @@ function showCheckoutForm() {
         if (indicator) indicator.style.display = 'none';
         if (proceedBtn) proceedBtn.style.display = 'none';
         if (placeOrderBtn) placeOrderBtn.style.display = 'block'; // Reveal dispatch button
+        
+        // Reset scroll position to top to prevent form feeling stuck/scrolled down
+        panel.scrollTop = 0;
+        const drawerElement = document.querySelector('.cart-drawer');
+        if (drawerElement) drawerElement.scrollTop = 0;
     }
 }
 
@@ -648,13 +653,21 @@ function showOrderSuccess(orderId, total, orderDetails, email) {
         const upiPayBtn = document.getElementById('upi-pay-app-btn');
         if (upiPayBtn) {
             upiPayBtn.onclick = (e) => {
-                const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-                if (!isMobile) {
+                const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                if (!isMobileDevice) {
                     e.preventDefault();
                     alert("Pay via UPI App is only supported on mobile devices. Please scan the QR Code on your screen using GPay, PhonePe, Paytm, or BHIM to complete your payment, or open this site on your mobile phone.");
                 }
             };
             upiPayBtn.href = upiLink;
+        }
+        
+        // Auto-redirect to UPI chooser on mobile devices for seamless checkout payment
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        if (isMobile) {
+            setTimeout(() => {
+                window.location.href = upiLink;
+            }, 800);
         }
         
         // Configure WhatsApp Confirm Button
