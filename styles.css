@@ -1275,6 +1275,18 @@ footer {
     box-shadow: 0 4px 10px rgba(244, 196, 48, 0.2);
 }
 
+.footer-socials a svg {
+    width: 18px !important;
+    height: 18px !important;
+    stroke: currentColor !important;
+    fill: none !important;
+    display: block;
+}
+
+footer .logo {
+    padding-left: 0 !important;
+}
+
 .footer-links-col h4 {
     font-size: 14px;
     color: var(--color-secondary);
