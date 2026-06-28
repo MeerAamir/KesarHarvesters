@@ -756,7 +756,7 @@ function renderShopPage() {
             const card = document.createElement('div');
             card.className = 'product-card';
             card.innerHTML = `
-                <div class="product-badge">${rprod ? (rprod.origin === 'Kashmiri' ? 'Pampore Mogra' : 'Gourmet Sargol') : (prod.origin === 'Kashmiri' ? 'Pampore Mogra' : 'Gourmet Sargol')}</div>
+                <div class="product-badge">${prod.origin === 'Kashmiri' ? 'Pampore Mogra' : 'Gourmet Sargol'}</div>
                 <a href="product.html?product=${prod.slug}">
                     <div class="product-img-wrap">
                         <img src="${prod.img}" alt="${prod.name}" width="1024" height="1024" loading="lazy">
