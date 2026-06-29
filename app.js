@@ -538,6 +538,65 @@ function renderCart() {
     
     if (checkoutActions) checkoutActions.style.display = 'flex';
     
+    // Check if we should render an upsell upgrade card (if cart contains 1g or 2g variants)
+    const hasKashmiri1g = state.cart.some(x => x.id === 'kashmiri-1g');
+    const hasKashmiri2g = state.cart.some(x => x.id === 'kashmiri-2g');
+    const hasIrani1g = state.cart.some(x => x.id === 'irani-1g');
+    const hasIrani2g = state.cart.some(x => x.id === 'irani-2g');
+    
+    let upsellHtml = '';
+    if (hasKashmiri1g) {
+        upsellHtml = `
+            <div class="cart-upsell-box" style="background: linear-gradient(135deg, rgba(244,196,48,0.06) 0%, rgba(74,20,140,0.03) 100%); border: 1px dashed rgba(244,196,48,0.4); padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 12px; line-height: 1.4; color: var(--color-text);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">🔥 Bulk Value Upgrade</span>
+                    <strong style="color: #2e7d32; font-size: 11px;">Save ₹396 (16%)</strong>
+                </div>
+                <div>Upgrade your <strong>1g Kashmiri</strong> to the <strong>5g pack</strong> for just <strong>₹1,999</strong> (Only ₹400/g instead of ₹479/g)!</div>
+                <button onclick="upgradeCartItem('kashmiri-1g', 'kashmiri-5g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase;">Upgrade & Save</button>
+            </div>
+        `;
+    } else if (hasKashmiri2g) {
+        upsellHtml = `
+            <div class="cart-upsell-box" style="background: linear-gradient(135deg, rgba(244,196,48,0.06) 0%, rgba(74,20,140,0.03) 100%); border: 1px dashed rgba(244,196,48,0.4); padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 12px; line-height: 1.4; color: var(--color-text);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">🔥 Bulk Value Upgrade</span>
+                    <strong style="color: #2e7d32; font-size: 11px;">Save ₹249 (11%)</strong>
+                </div>
+                <div>Upgrade your <strong>2g Kashmiri</strong> to the <strong>5g pack</strong> for just <strong>₹1,999</strong> (Save ₹249 per order)!</div>
+                <button onclick="upgradeCartItem('kashmiri-2g', 'kashmiri-5g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase;">Upgrade & Save</button>
+            </div>
+        `;
+    } else if (hasIrani1g) {
+        upsellHtml = `
+            <div class="cart-upsell-box" style="background: linear-gradient(135deg, rgba(244,196,48,0.06) 0%, rgba(74,20,140,0.03) 100%); border: 1px dashed rgba(244,196,48,0.4); padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 12px; line-height: 1.4; color: var(--color-text);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">🔥 Bulk Value Upgrade</span>
+                    <strong style="color: #2e7d32; font-size: 11px;">Save ₹296 (16%)</strong>
+                </div>
+                <div>Upgrade your <strong>1g Irani</strong> to the <strong>5g pack</strong> for just <strong>₹1,599</strong> (Only ₹320/g instead of ₹379/g)!</div>
+                <button onclick="upgradeCartItem('irani-1g', 'irani-5g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase;">Upgrade & Save</button>
+            </div>
+        `;
+    } else if (hasIrani2g) {
+        upsellHtml = `
+            <div class="cart-upsell-box" style="background: linear-gradient(135deg, rgba(244,196,48,0.06) 0%, rgba(74,20,140,0.03) 100%); border: 1px dashed rgba(244,196,48,0.4); padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 12px; line-height: 1.4; color: var(--color-text);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">🔥 Bulk Value Upgrade</span>
+                    <strong style="color: #2e7d32; font-size: 11px;">Save ₹149 (9%)</strong>
+                </div>
+                <div>Upgrade your <strong>2g Irani</strong> to the <strong>5g pack</strong> for just <strong>₹1,599</strong> (Save ₹149 per order)!</div>
+                <button onclick="upgradeCartItem('irani-2g', 'irani-5g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase;">Upgrade & Save</button>
+            </div>
+        `;
+    }
+    
+    if (upsellHtml) {
+        const upsellRow = document.createElement('div');
+        upsellRow.innerHTML = upsellHtml;
+        itemsContainer.appendChild(upsellRow.firstElementChild);
+    }
+    
     state.cart.forEach(item => {
         const prod = PRODUCTS[item.id];
         if (!prod) return;
@@ -780,11 +839,23 @@ function renderShopPage() {
             if (filterOrigin !== 'all' && prod.origin.toLowerCase() !== filterOrigin.toLowerCase()) {
                 return;
             }
+            let badgeText = prod.origin === 'Kashmiri' ? 'Pampore Mogra' : 'Gourmet Sargol';
+            let badgeStyle = '';
+            if (prod.id.includes('-5g')) {
+                badgeText = '🔥 Best Seller';
+                badgeStyle = 'background-color: #e65100; color: white; font-weight: 700;';
+            } else if (prod.id.includes('-10g')) {
+                badgeText = '💎 Best Value';
+                badgeStyle = 'background-color: #2e7d32; color: white; font-weight: 700;';
+            } else if (prod.id.includes('-20g') || prod.id.includes('-50g')) {
+                badgeText = '👑 Bulk Saver';
+                badgeStyle = 'background-color: var(--color-primary); color: white; font-weight: 700;';
+            }
             
             const card = document.createElement('div');
             card.className = 'product-card';
             card.innerHTML = `
-                <div class="product-badge">${prod.origin === 'Kashmiri' ? 'Pampore Mogra' : 'Gourmet Sargol'}</div>
+                <div class="product-badge" style="${badgeStyle}">${badgeText}</div>
                 <a href="product.html?product=${prod.slug}">
                     <div class="product-img-wrap">
                         <img src="${prod.img}" alt="${prod.name}" width="1024" height="1024" loading="lazy">
@@ -1076,7 +1147,15 @@ function renderProductDetailPage() {
     }
     if (detailBadge) detailBadge.textContent = prod.category;
     if (detailTitle) detailTitle.textContent = prod.name;
-    if (detailPrice) detailPrice.textContent = `₹${prod.price}`;
+    if (detailPrice) {
+        const weightNum = parseFloat(prod.weight);
+        let perGramText = '';
+        if (weightNum > 1) {
+            const perGramPrice = Math.round(prod.price / weightNum);
+            perGramText = ` <span style="font-size: 14px; font-weight: 600; color: #2e7d32; display: block; margin-top: 5px;">(Only ₹${perGramPrice} / gram — save significantly on larger sizes!)</span>`;
+        }
+        detailPrice.innerHTML = `₹${prod.price}${perGramText}`;
+    }
     if (detailWeight) detailWeight.textContent = prod.weight;
     
     // Render weights selector tabs
@@ -1294,3 +1373,11 @@ function renderProductDetailPage() {
     script.textContent = JSON.stringify(detailSchema, null, 2);
     document.head.appendChild(script);
 }
+
+window.upgradeCartItem = function(oldId, newId) {
+    const item = state.cart.find(x => x.id === oldId);
+    if (item) {
+        state.cart = state.cart.filter(x => x.id !== oldId);
+        addToCart(newId);
+    }
+};
