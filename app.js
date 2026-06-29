@@ -30,7 +30,7 @@ const PRODUCTS = {
         id: 'kashmiri-2g',
         slug: 'kashmiri-organic-saffron-2g',
         name: 'Kashmiri Premium Saffron (2g)',
-        price: 949,
+        price: 959,
         weight: '2 Grams',
         origin: 'Kashmiri',
         category: 'Premium Mogra',
@@ -51,7 +51,7 @@ const PRODUCTS = {
         id: 'kashmiri-5g',
         slug: 'kashmiri-organic-saffron-5g',
         name: 'Kashmiri Premium Saffron (5g)',
-        price: 2399,
+        price: 2299,
         weight: '5 Grams',
         origin: 'Kashmiri',
         category: 'Premium Mogra',
@@ -72,7 +72,7 @@ const PRODUCTS = {
         id: 'kashmiri-10g',
         slug: 'kashmiri-organic-saffron-10g',
         name: 'Kashmiri Premium Saffron (10g)',
-        price: 4699,
+        price: 4499,
         weight: '10 Grams',
         origin: 'Kashmiri',
         category: 'Premium Mogra',
@@ -93,7 +93,7 @@ const PRODUCTS = {
         id: 'kashmiri-20g',
         slug: 'kashmiri-organic-saffron-20g',
         name: 'Kashmiri Premium Saffron (20g)',
-        price: 9299,
+        price: 8699,
         weight: '20 Grams',
         origin: 'Kashmiri',
         category: 'Premium Mogra',
@@ -114,7 +114,7 @@ const PRODUCTS = {
         id: 'kashmiri-50g',
         slug: 'kashmiri-organic-saffron-50g',
         name: 'Kashmiri Premium Saffron (50g)',
-        price: 22999,
+        price: 19999,
         weight: '50 Grams',
         origin: 'Kashmiri',
         category: 'Premium Mogra',
@@ -158,7 +158,7 @@ const PRODUCTS = {
         id: 'irani-2g',
         slug: 'irani-sargol-saffron-2g',
         name: 'Irani Premium Saffron (2g)',
-        price: 749,
+        price: 759,
         weight: '2 Grams',
         origin: 'Irani',
         category: 'Premium Sargol',
@@ -179,7 +179,7 @@ const PRODUCTS = {
         id: 'irani-5g',
         slug: 'irani-sargol-saffron-5g',
         name: 'Irani Premium Saffron (5g)',
-        price: 1899,
+        price: 1799,
         weight: '5 Grams',
         origin: 'Irani',
         category: 'Premium Sargol',
@@ -200,7 +200,7 @@ const PRODUCTS = {
         id: 'irani-10g',
         slug: 'irani-sargol-saffron-10g',
         name: 'Irani Premium Saffron (10g)',
-        price: 3699,
+        price: 3499,
         weight: '10 Grams',
         origin: 'Irani',
         category: 'Premium Sargol',
@@ -221,7 +221,7 @@ const PRODUCTS = {
         id: 'irani-20g',
         slug: 'irani-sargol-saffron-20g',
         name: 'Irani Premium Saffron (20g)',
-        price: 7299,
+        price: 6899,
         weight: '20 Grams',
         origin: 'Irani',
         category: 'Premium Sargol',
@@ -242,7 +242,7 @@ const PRODUCTS = {
         id: 'irani-50g',
         slug: 'irani-sargol-saffron-50g',
         name: 'Irani Premium Saffron (50g)',
-        price: 17999,
+        price: 15999,
         weight: '50 Grams',
         origin: 'Irani',
         category: 'Premium Sargol',
@@ -265,7 +265,7 @@ const PRODUCTS = {
         id: 'luxury-combo',
         slug: 'kashmiri-saffron-kahwa-gift-set',
         name: 'KesarHarvesters Premium Combo Pack',
-        price: 1649,
+        price: 1599,
         weight: 'Kashmiri (2g) + Irani (2g)',
         origin: 'Combo',
         category: 'Premium Gift Set',
@@ -539,105 +539,123 @@ function renderCart() {
     
     if (checkoutActions) checkoutActions.style.display = 'flex';
     
-    // Check if we should render an upsell upgrade card (if cart contains 1g or 2g variants)
-    const k1gItem = state.cart.find(x => x.id === 'kashmiri-1g');
-    const k2gItem = state.cart.find(x => x.id === 'kashmiri-2g');
-    const i1gItem = state.cart.find(x => x.id === 'irani-1g');
-    const i2gItem = state.cart.find(x => x.id === 'irani-2g');
+    // Compute total weights per origin in cart to recommend upsells
+    let totalKashmiriWeight = 0;
+    let totalIraniWeight = 0;
+    
+    state.cart.forEach(item => {
+        const prod = PRODUCTS[item.id];
+        if (prod) {
+            const w = parseFloat(prod.weight);
+            if (prod.origin === 'Kashmiri') {
+                totalKashmiriWeight += w * item.qty;
+            } else if (prod.origin === 'Irani') {
+                totalIraniWeight += w * item.qty;
+            }
+        }
+    });
     
     let upsellHtml = '';
-    if (k1gItem) {
-        if (k1gItem.qty >= 5) {
+    if (totalKashmiriWeight > 0) {
+        if (totalKashmiriWeight < 5) {
+            const savings = Math.round((489 * 5) - 2299);
             upsellHtml = `
                 <div class="cart-upsell-box" style="background: linear-gradient(135deg, rgba(244,196,48,0.06) 0%, rgba(74,20,140,0.03) 100%); border: 1px dashed rgba(244,196,48,0.4); padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 12px; line-height: 1.4; color: var(--color-text);">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                        <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">🔥 Smart Bundle Saver</span>
-                        <strong style="color: #2e7d32; font-size: 11px;">Save ₹46 on 5g</strong>
+                        <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">🔥 Mogra Value Upgrade</span>
+                        <strong style="color: #2e7d32; font-size: 11px;">Save ₹${savings} on 5g!</strong>
                     </div>
-                    <div>You have ${k1gItem.qty} pieces of <strong>1g Kashmiri</strong>. Swap 5 of them for a single <strong>5g pack</strong> for just <strong>₹2,399</strong> (Save ₹46)!</div>
-                    <button onclick="consolidateItem('kashmiri-1g', 5, 'kashmiri-5g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase;">Consolidate & Save</button>
+                    <div>You have ${totalKashmiriWeight}g of Kashmiri Mogra. Upgrade your selection to a single <strong>5g pack</strong> for just <strong>₹2,299</strong> (Only ₹459.80/g instead of ₹489/g)!</div>
+                    <button onclick="upgradeToLargerPack('Kashmiri', 'kashmiri-5g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.05em;">Upgrade to 5g & Save</button>
                 </div>
             `;
-        } else if (k1gItem.qty >= 2) {
+        } else if (totalKashmiriWeight < 10) {
+            const savings = Math.round((489 * 10) - 4499);
             upsellHtml = `
                 <div class="cart-upsell-box" style="background: linear-gradient(135deg, rgba(244,196,48,0.06) 0%, rgba(74,20,140,0.03) 100%); border: 1px dashed rgba(244,196,48,0.4); padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 12px; line-height: 1.4; color: var(--color-text);">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                        <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">🔥 Smart Bundle Saver</span>
-                        <strong style="color: #2e7d32; font-size: 11px;">Save ₹29 on 2g</strong>
+                        <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">💎 Premium Pack Upgrade</span>
+                        <strong style="color: #2e7d32; font-size: 11px;">Save ₹${savings}!</strong>
                     </div>
-                    <div>You have ${k1gItem.qty} pieces of <strong>1g Kashmiri</strong>. Swap 2 of them for a single <strong>2g pack</strong> for just <strong>₹949</strong> (Save ₹29)!</div>
-                    <button onclick="consolidateItem('kashmiri-1g', 2, 'kashmiri-2g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase;">Consolidate & Save</button>
+                    <div>You have ${totalKashmiriWeight}g of Kashmiri Mogra. Upgrade your selection to a single <strong>10g pack</strong> for just <strong>₹4,499</strong> (Only ₹449.90/g) for maximum savings!</div>
+                    <button onclick="upgradeToLargerPack('Kashmiri', 'kashmiri-10g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.05em;">Upgrade to 10g & Save</button>
                 </div>
             `;
-        } else {
+        } else if (totalKashmiriWeight < 20) {
+            const savings = Math.round((489 * 20) - 8699);
             upsellHtml = `
                 <div class="cart-upsell-box" style="background: linear-gradient(135deg, rgba(244,196,48,0.06) 0%, rgba(74,20,140,0.03) 100%); border: 1px dashed rgba(244,196,48,0.4); padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 12px; line-height: 1.4; color: var(--color-text);">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                        <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">🔥 Bulk Value Upgrade</span>
-                        <strong style="color: #2e7d32; font-size: 11px;">Save ₹46 (Best Value)</strong>
+                        <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">👑 Bulk Saver Upgrade</span>
+                        <strong style="color: #2e7d32; font-size: 11px;">Save ₹${savings}!</strong>
                     </div>
-                    <div>Upgrade your <strong>1g Kashmiri</strong> to the <strong>5g pack</strong> for just <strong>₹2,399</strong> (Only ₹480/g instead of ₹489/g)!</div>
-                    <button onclick="upgradeCartItem('kashmiri-1g', 'kashmiri-5g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase;">Upgrade & Save</button>
+                    <div>You have ${totalKashmiriWeight}g of Kashmiri Mogra. Upgrade your selection to a single <strong>20g pack</strong> for just <strong>₹8,699</strong> (Only ₹434.95/g) for wholesale pricing!</div>
+                    <button onclick="upgradeToLargerPack('Kashmiri', 'kashmiri-20g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.05em;">Upgrade to 20g & Save</button>
                 </div>
             `;
-        }
-    } else if (k2gItem) {
-        upsellHtml = `
-            <div class="cart-upsell-box" style="background: linear-gradient(135deg, rgba(244,196,48,0.06) 0%, rgba(74,20,140,0.03) 100%); border: 1px dashed rgba(244,196,48,0.4); padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 12px; line-height: 1.4; color: var(--color-text);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">🔥 Bulk Value Upgrade</span>
-                    <strong style="color: #2e7d32; font-size: 11px;">Save ₹23 over 2g</strong>
-                </div>
-                <div>Upgrade your <strong>2g Kashmiri</strong> to the <strong>5g pack</strong> for just <strong>₹2,399</strong> (Better value per gram)!</div>
-                <button onclick="upgradeCartItem('kashmiri-2g', 'kashmiri-5g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase;">Upgrade & Save</button>
-            </div>
-        `;
-    } else if (i1gItem) {
-        if (i1gItem.qty >= 5) {
+        } else if (totalKashmiriWeight < 50) {
+            const savings = Math.round((489 * 50) - 19999);
             upsellHtml = `
                 <div class="cart-upsell-box" style="background: linear-gradient(135deg, rgba(244,196,48,0.06) 0%, rgba(74,20,140,0.03) 100%); border: 1px dashed rgba(244,196,48,0.4); padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 12px; line-height: 1.4; color: var(--color-text);">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                        <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">🔥 Smart Bundle Saver</span>
-                        <strong style="color: #2e7d32; font-size: 11px;">Save ₹46 on 5g</strong>
+                        <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">👑 Mega Saver Upgrade</span>
+                        <strong style="color: #2e7d32; font-size: 11px;">Save ₹${savings}!</strong>
                     </div>
-                    <div>You have ${i1gItem.qty} pieces of <strong>1g Irani</strong>. Swap 5 of them for a single <strong>5g pack</strong> for just <strong>₹1,899</strong> (Save ₹46)!</div>
-                    <button onclick="consolidateItem('irani-1g', 5, 'irani-5g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase;">Consolidate & Save</button>
-                </div>
-            `;
-        } else if (i1gItem.qty >= 2) {
-            upsellHtml = `
-                <div class="cart-upsell-box" style="background: linear-gradient(135deg, rgba(244,196,48,0.06) 0%, rgba(74,20,140,0.03) 100%); border: 1px dashed rgba(244,196,48,0.4); padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 12px; line-height: 1.4; color: var(--color-text);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                        <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">🔥 Smart Bundle Saver</span>
-                        <strong style="color: #2e7d32; font-size: 11px;">Save ₹29 on 2g</strong>
-                    </div>
-                    <div>You have ${i1gItem.qty} pieces of <strong>1g Irani</strong>. Swap 2 of them for a single <strong>2g pack</strong> for just <strong>₹749</strong> (Save ₹29)!</div>
-                    <button onclick="consolidateItem('irani-1g', 2, 'irani-2g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase;">Consolidate & Save</button>
-                </div>
-            `;
-        } else {
-            upsellHtml = `
-                <div class="cart-upsell-box" style="background: linear-gradient(135deg, rgba(244,196,48,0.06) 0%, rgba(74,20,140,0.03) 100%); border: 1px dashed rgba(244,196,48,0.4); padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 12px; line-height: 1.4; color: var(--color-text);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                        <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">🔥 Bulk Value Upgrade</span>
-                        <strong style="color: #2e7d32; font-size: 11px;">Save ₹46 (Best Value)</strong>
-                    </div>
-                    <div>Upgrade your <strong>1g Irani</strong> to the <strong>5g pack</strong> for just <strong>₹1,899</strong> (Only ₹380/g instead of ₹389/g)!</div>
-                    <button onclick="upgradeCartItem('irani-1g', 'irani-5g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase;">Upgrade & Save</button>
+                    <div>You have ${totalKashmiriWeight}g of Kashmiri Mogra. Upgrade your selection to a single <strong>50g pack</strong> for just <strong>₹19,999</strong> (Only ₹399.98/g) for ultimate savings!</div>
+                    <button onclick="upgradeToLargerPack('Kashmiri', 'kashmiri-50g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.05em;">Upgrade to 50g & Save</button>
                 </div>
             `;
         }
-    } else if (i2gItem) {
-        upsellHtml = `
-            <div class="cart-upsell-box" style="background: linear-gradient(135deg, rgba(244,196,48,0.06) 0%, rgba(74,20,140,0.03) 100%); border: 1px dashed rgba(244,196,48,0.4); padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 12px; line-height: 1.4; color: var(--color-text);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">🔥 Bulk Value Upgrade</span>
-                    <strong style="color: #2e7d32; font-size: 11px;">Save ₹23 over 2g</strong>
+    } else if (totalIraniWeight > 0) {
+        if (totalIraniWeight < 5) {
+            const savings = Math.round((389 * 5) - 1799);
+            upsellHtml = `
+                <div class="cart-upsell-box" style="background: linear-gradient(135deg, rgba(244,196,48,0.06) 0%, rgba(74,20,140,0.03) 100%); border: 1px dashed rgba(244,196,48,0.4); padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 12px; line-height: 1.4; color: var(--color-text);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">🔥 Sargol Value Upgrade</span>
+                        <strong style="color: #2e7d32; font-size: 11px;">Save ₹${savings} on 5g!</strong>
+                    </div>
+                    <div>You have ${totalIraniWeight}g of Irani Sargol. Upgrade your selection to a single <strong>5g pack</strong> for just <strong>₹1,799</strong> (Only ₹359.80/g instead of ₹389/g)!</div>
+                    <button onclick="upgradeToLargerPack('Irani', 'irani-5g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.05em;">Upgrade to 5g & Save</button>
                 </div>
-                <div>Upgrade your <strong>2g Irani</strong> to the <strong>5g pack</strong> for just <strong>₹1,899</strong> (Better value per gram)!</div>
-                <button onclick="upgradeCartItem('irani-2g', 'irani-5g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase;">Upgrade & Save</button>
-            </div>
-        `;
+            `;
+        } else if (totalIraniWeight < 10) {
+            const savings = Math.round((389 * 10) - 3499);
+            upsellHtml = `
+                <div class="cart-upsell-box" style="background: linear-gradient(135deg, rgba(244,196,48,0.06) 0%, rgba(74,20,140,0.03) 100%); border: 1px dashed rgba(244,196,48,0.4); padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 12px; line-height: 1.4; color: var(--color-text);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">💎 Premium Pack Upgrade</span>
+                        <strong style="color: #2e7d32; font-size: 11px;">Save ₹${savings}!</strong>
+                    </div>
+                    <div>You have ${totalIraniWeight}g of Irani Sargol. Upgrade your selection to a single <strong>10g pack</strong> for just <strong>₹3,499</strong> (Only ₹349.90/g) for maximum savings!</div>
+                    <button onclick="upgradeToLargerPack('Irani', 'irani-10g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.05em;">Upgrade to 10g & Save</button>
+                </div>
+            `;
+        } else if (totalIraniWeight < 20) {
+            const savings = Math.round((389 * 20) - 6899);
+            upsellHtml = `
+                <div class="cart-upsell-box" style="background: linear-gradient(135deg, rgba(244,196,48,0.06) 0%, rgba(74,20,140,0.03) 100%); border: 1px dashed rgba(244,196,48,0.4); padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 12px; line-height: 1.4; color: var(--color-text);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">👑 Bulk Saver Upgrade</span>
+                        <strong style="color: #2e7d32; font-size: 11px;">Save ₹${savings}!</strong>
+                    </div>
+                    <div>You have ${totalIraniWeight}g of Irani Sargol. Upgrade your selection to a single <strong>20g pack</strong> for just <strong>₹6,899</strong> (Only ₹344.95/g) for wholesale pricing!</div>
+                    <button onclick="upgradeToLargerPack('Irani', 'irani-20g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.05em;">Upgrade to 20g & Save</button>
+                </div>
+            `;
+        } else if (totalIraniWeight < 50) {
+            const savings = Math.round((389 * 50) - 15999);
+            upsellHtml = `
+                <div class="cart-upsell-box" style="background: linear-gradient(135deg, rgba(244,196,48,0.06) 0%, rgba(74,20,140,0.03) 100%); border: 1px dashed rgba(244,196,48,0.4); padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 12px; line-height: 1.4; color: var(--color-text);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <span style="font-size: 9px; font-weight: 700; color: var(--color-primary); background: rgba(244,196,48,0.2); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">👑 Mega Saver Upgrade</span>
+                        <strong style="color: #2e7d32; font-size: 11px;">Save ₹${savings}!</strong>
+                    </div>
+                    <div>You have ${totalIraniWeight}g of Irani Sargol. Upgrade your selection to a single <strong>50g pack</strong> for just <strong>₹15,999</strong> (Only ₹319.98/g) for ultimate savings!</div>
+                    <button onclick="upgradeToLargerPack('Irani', 'irani-50g')" style="background-color: var(--color-secondary); color: var(--color-primary-dark); border: none; padding: 6px 12px; font-size: 10px; font-weight: 700; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.05em;">Upgrade to 50g & Save</button>
+                </div>
+            `;
+        }
     }
     
     if (upsellHtml) {
@@ -1435,21 +1453,10 @@ function renderProductDetailPage() {
     document.head.appendChild(script);
 }
 
-window.upgradeCartItem = function(oldId, newId) {
-    const item = state.cart.find(x => x.id === oldId);
-    if (item) {
-        state.cart = state.cart.filter(x => x.id !== oldId);
-        addToCart(newId);
-    }
-};
-
-window.consolidateItem = function(oldId, oldQty, newId) {
-    const item = state.cart.find(x => x.id === oldId);
-    if (item && item.qty >= oldQty) {
-        item.qty -= oldQty;
-        if (item.qty <= 0) {
-            state.cart = state.cart.filter(x => x.id !== oldId);
-        }
-        addToCart(newId);
-    }
+window.upgradeToLargerPack = function(origin, targetId) {
+    state.cart = state.cart.filter(item => {
+        const prod = PRODUCTS[item.id];
+        return !prod || prod.origin !== origin;
+    });
+    addToCart(targetId);
 };
