@@ -30,7 +30,7 @@ const PRODUCTS = {
         id: 'kashmiri-2g',
         slug: 'kashmiri-organic-saffron-2g',
         name: 'Kashmiri Premium Saffron (2g)',
-        price: 959,
+        price: 978,
         weight: '2 Grams',
         origin: 'Kashmiri',
         category: 'Premium Mogra',
@@ -51,7 +51,7 @@ const PRODUCTS = {
         id: 'kashmiri-5g',
         slug: 'kashmiri-organic-saffron-5g',
         name: 'Kashmiri Premium Saffron (5g)',
-        price: 2299,
+        price: 2445,
         weight: '5 Grams',
         origin: 'Kashmiri',
         category: 'Premium Mogra',
@@ -72,7 +72,7 @@ const PRODUCTS = {
         id: 'kashmiri-10g',
         slug: 'kashmiri-organic-saffron-10g',
         name: 'Kashmiri Premium Saffron (10g)',
-        price: 4499,
+        price: 4890,
         weight: '10 Grams',
         origin: 'Kashmiri',
         category: 'Premium Mogra',
@@ -93,7 +93,7 @@ const PRODUCTS = {
         id: 'kashmiri-20g',
         slug: 'kashmiri-organic-saffron-20g',
         name: 'Kashmiri Premium Saffron (20g)',
-        price: 8699,
+        price: 9780,
         weight: '20 Grams',
         origin: 'Kashmiri',
         category: 'Premium Mogra',
@@ -114,7 +114,7 @@ const PRODUCTS = {
         id: 'kashmiri-50g',
         slug: 'kashmiri-organic-saffron-50g',
         name: 'Kashmiri Premium Saffron (50g)',
-        price: 19999,
+        price: 24450,
         weight: '50 Grams',
         origin: 'Kashmiri',
         category: 'Premium Mogra',
@@ -158,7 +158,7 @@ const PRODUCTS = {
         id: 'irani-2g',
         slug: 'irani-sargol-saffron-2g',
         name: 'Irani Premium Saffron (2g)',
-        price: 759,
+        price: 778,
         weight: '2 Grams',
         origin: 'Irani',
         category: 'Premium Sargol',
@@ -179,7 +179,7 @@ const PRODUCTS = {
         id: 'irani-5g',
         slug: 'irani-sargol-saffron-5g',
         name: 'Irani Premium Saffron (5g)',
-        price: 1799,
+        price: 1945,
         weight: '5 Grams',
         origin: 'Irani',
         category: 'Premium Sargol',
@@ -200,7 +200,7 @@ const PRODUCTS = {
         id: 'irani-10g',
         slug: 'irani-sargol-saffron-10g',
         name: 'Irani Premium Saffron (10g)',
-        price: 3499,
+        price: 3890,
         weight: '10 Grams',
         origin: 'Irani',
         category: 'Premium Sargol',
@@ -221,7 +221,7 @@ const PRODUCTS = {
         id: 'irani-20g',
         slug: 'irani-sargol-saffron-20g',
         name: 'Irani Premium Saffron (20g)',
-        price: 6899,
+        price: 7780,
         weight: '20 Grams',
         origin: 'Irani',
         category: 'Premium Sargol',
@@ -242,7 +242,7 @@ const PRODUCTS = {
         id: 'irani-50g',
         slug: 'irani-sargol-saffron-50g',
         name: 'Irani Premium Saffron (50g)',
-        price: 15999,
+        price: 19450,
         weight: '50 Grams',
         origin: 'Irani',
         category: 'Premium Sargol',
@@ -265,7 +265,7 @@ const PRODUCTS = {
         id: 'luxury-combo',
         slug: 'kashmiri-saffron-kahwa-gift-set',
         name: 'KesarHarvesters Premium Combo Pack',
-        price: 1599,
+        price: 1756,
         weight: 'Kashmiri (2g) + Irani (2g)',
         origin: 'Combo',
         category: 'Premium Gift Set',
@@ -321,7 +321,7 @@ const FUTURE_PRODUCTS = {
 };
 
 const SHIPPING_FEE_DEFAULT = 99;
-const SHIPPING_FREE_THRESHOLD = 2000;
+const SHIPPING_FREE_THRESHOLD = 2500;
 
 // --- STATE MANAGEMENT ---
 let state = {
@@ -430,6 +430,53 @@ function initCartUI() {
     const overlay = document.querySelector('.cart-overlay');
     const drawer = document.querySelector('.cart-drawer');
     const closeBtn = document.querySelector('.cart-close');
+    
+    // Dynamically inject the compact checkout form HTML
+    const checkoutPanel = document.querySelector('.checkout-panel');
+    if (checkoutPanel) {
+        checkoutPanel.innerHTML = `
+            <h3 style="font-size:16px;font-family:var(--font-serif);margin-bottom:12px;border-bottom:1px solid var(--color-bg-dark);padding-bottom:8px">Delivery Details</h3>
+            <form id="checkout-form" onsubmit="dispatchOrder(event)" style="display: flex; flex-direction: column; gap: 8px;">
+                <div class="form-group" style="margin-bottom: 2px;">
+                    <label style="font-size: 11px; font-weight: 600; margin-bottom: 2px; display: block;">Full Name</label>
+                    <input id="chk-name" class="form-control" placeholder="Ramesh Kumar" required style="padding: 8px 12px; font-size: 13px;">
+                </div>
+                
+                <div style="display: flex; gap: 8px; margin-bottom: 2px;">
+                    <div class="form-group" style="flex: 1.2;">
+                        <label style="font-size: 11px; font-weight: 600; margin-bottom: 2px; display: block;">Phone Number</label>
+                        <input type="tel" id="chk-phone" class="form-control" placeholder="e.g. 9876543210" required style="padding: 8px 12px; font-size: 13px;">
+                    </div>
+                    <div class="form-group" style="flex: 0.8;">
+                        <label style="font-size: 11px; font-weight: 600; margin-bottom: 2px; display: block;">Pincode</label>
+                        <input id="chk-pincode" class="form-control" placeholder="110001" pattern="[0-9]{6}" title="6-digit Pincode" required style="padding: 8px 12px; font-size: 13px;">
+                    </div>
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 2px;">
+                    <label style="font-size: 11px; font-weight: 600; margin-bottom: 2px; display: block;">Email Address</label>
+                    <input type="email" id="chk-email" class="form-control" placeholder="ramesh@example.com" required style="padding: 8px 12px; font-size: 13px;">
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 2px;">
+                    <label style="font-size: 11px; font-weight: 600; margin-bottom: 2px; display: block;">Shipping Address</label>
+                    <textarea id="chk-address" class="form-control" rows="2" placeholder="Street, House No, Locality, City, State" required style="resize:none; padding: 8px 12px; font-size: 13px; height: 48px;"></textarea>
+                </div>
+                
+                <div class="form-group" style="background-color: rgba(74, 20, 140, 0.04); padding: 10px 12px; border-radius: 8px; border: 1px dashed var(--color-secondary); margin-top: 8px; margin-bottom: 4px;">
+                    <span style="font-size: 10px; font-weight: 700; color: var(--color-primary); display: block; text-transform: uppercase; margin-bottom: 4px;">UPI Payment Details</span>
+                    <p style="font-size: 11px; color: var(--color-text); line-height: 1.4; margin: 0;">
+                        UPI ID: <strong>8825034663@yescred</strong><br>
+                        Please pay the total amount via UPI. After placing the order, you will get a scan code and links to pay, and can confirm via WhatsApp.
+                    </p>
+                </div>
+                
+                <div style="margin-top: 8px; text-align: center;">
+                    <a href="javascript:void(0)" onclick="resetCartView()" style="font-size: 12px; color: var(--color-accent); text-decoration: underline; font-weight: 600;">&larr; Back to Cart Items</a>
+                </div>
+            </form>
+        `;
+    }
     
     if (drawer && overlay) {
         cartBtns.forEach(btn => btn.addEventListener('click', openCart));
@@ -664,6 +711,33 @@ function renderCart() {
         itemsContainer.appendChild(upsellRow.firstElementChild);
     }
     
+    // Calculate total saffron weight for discount
+    let totalSaffronWeight = 0;
+    state.cart.forEach(item => {
+        const prod = PRODUCTS[item.id];
+        if (prod) {
+            if (prod.id === 'luxury-combo') {
+                totalSaffronWeight += 4 * item.qty; // 2g Kashmiri + 2g Irani = 4g total
+            } else {
+                const w = parseFloat(prod.weight);
+                if (w > 0) {
+                    totalSaffronWeight += w * item.qty;
+                }
+            }
+        }
+    });
+
+    let discount = 0;
+    if (totalSaffronWeight >= 50) {
+        discount = 200;
+    } else if (totalSaffronWeight >= 20) {
+        discount = 80;
+    } else if (totalSaffronWeight >= 10) {
+        discount = 50;
+    } else if (totalSaffronWeight >= 5) {
+        discount = 25;
+    }
+
     state.cart.forEach(item => {
         const prod = PRODUCTS[item.id];
         if (!prod) return;
@@ -692,18 +766,52 @@ function renderCart() {
         itemsContainer.appendChild(row);
     });
     
-    const activeShippingFee = (subtotal === 0 || subtotal >= SHIPPING_FREE_THRESHOLD) ? 0 : SHIPPING_FEE_DEFAULT;
-    const grandTotal = subtotal + activeShippingFee;
+    const finalSubtotal = Math.max(0, subtotal - discount);
+    const activeShippingFee = (subtotal === 0 || finalSubtotal >= SHIPPING_FREE_THRESHOLD) ? 0 : SHIPPING_FEE_DEFAULT;
+    const grandTotal = finalSubtotal + activeShippingFee;
     
+    // Dynamic free shipping progress bar
     const shippingIndicator = document.querySelector('.shipping-indicator');
     if (shippingIndicator) {
-        if (subtotal >= SHIPPING_FREE_THRESHOLD) {
-            shippingIndicator.innerHTML = `<i data-lucide="truck" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-right: 4px;"></i>🎉 You qualify for <strong>FREE DELIVERY</strong>!`;
+        if (subtotal === 0) {
+            shippingIndicator.style.display = 'none';
         } else {
-            shippingIndicator.innerHTML = `<i data-lucide="truck" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-right: 4px;"></i>Flat rate of <strong>₹99</strong> delivery charge across India (up to 1 kg) — Free on orders above ₹2,000!`;
+            shippingIndicator.style.display = 'block';
+            if (finalSubtotal >= SHIPPING_FREE_THRESHOLD) {
+                shippingIndicator.innerHTML = `<i data-lucide="truck" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-right: 4px;"></i>🎉 You qualify for <strong>FREE DELIVERY</strong>!`;
+            } else {
+                const needed = SHIPPING_FREE_THRESHOLD - finalSubtotal;
+                const percentage = Math.min((finalSubtotal / SHIPPING_FREE_THRESHOLD) * 100, 100);
+                shippingIndicator.innerHTML = `
+                    <div style="margin-bottom: 6px;"><i data-lucide="truck" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-right: 4px;"></i>Add <strong>₹${needed}</strong> more to qualify for <strong>FREE DELIVERY</strong>!</div>
+                    <div style="background-color: rgba(0,0,0,0.06); border-radius: 10px; height: 6px; overflow: hidden; width: 100%; margin-top: 4px;">
+                        <div style="background: linear-gradient(90deg, var(--color-secondary) 0%, var(--color-primary) 100%); width: ${percentage}%; height: 100%; border-radius: 10px; transition: width 0.3s ease;"></div>
+                    </div>
+                `;
+            }
         }
         if (window.lucide) {
             window.lucide.createIcons();
+        }
+    }
+
+    // Dynamic Saffron Discount Row in Cart Footer
+    let discountRow = document.querySelector('.cart-discount');
+    if (discount > 0) {
+        if (!discountRow) {
+            discountRow = document.createElement('div');
+            discountRow.className = 'cart-discount';
+            discountRow.style.cssText = 'display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; color: #2e7d32; font-weight: 600;';
+            const subtotalRow = document.querySelector('.cart-subtotal');
+            if (subtotalRow) {
+                subtotalRow.parentNode.insertBefore(discountRow, subtotalRow.nextSibling);
+            }
+        }
+        discountRow.innerHTML = `<span>Saffron Quantity Discount:</span> <span>-₹${discount}</span>`;
+        discountRow.style.display = 'flex';
+    } else {
+        if (discountRow) {
+            discountRow.style.display = 'none';
         }
     }
     
@@ -749,17 +857,42 @@ function dispatchOrder(event) {
     orderDetails += `*Items Ordered:*\n`;
     
     let subtotal = 0;
+    let totalSaffronWeight = 0;
     state.cart.forEach(item => {
         const prod = PRODUCTS[item.id];
         if (prod) {
             orderDetails += `• ${prod.name} x ${item.qty} - ₹${prod.price * item.qty}\n`;
             subtotal += prod.price * item.qty;
+            if (prod.id === 'luxury-combo') {
+                totalSaffronWeight += 4 * item.qty;
+            } else {
+                const w = parseFloat(prod.weight);
+                if (w > 0) {
+                    totalSaffronWeight += w * item.qty;
+                }
+            }
         }
     });
     
-    const activeShippingFee = subtotal >= SHIPPING_FREE_THRESHOLD ? 0 : SHIPPING_FEE_DEFAULT;
-    const total = subtotal + activeShippingFee;
-    orderDetails += `\nDelivery Charge: ₹${activeShippingFee}\n`;
+    let discount = 0;
+    if (totalSaffronWeight >= 50) {
+        discount = 200;
+    } else if (totalSaffronWeight >= 20) {
+        discount = 80;
+    } else if (totalSaffronWeight >= 10) {
+        discount = 50;
+    } else if (totalSaffronWeight >= 5) {
+        discount = 25;
+    }
+    
+    const finalSubtotal = Math.max(0, subtotal - discount);
+    const activeShippingFee = finalSubtotal >= SHIPPING_FREE_THRESHOLD ? 0 : SHIPPING_FEE_DEFAULT;
+    const total = finalSubtotal + activeShippingFee;
+    
+    if (discount > 0) {
+        orderDetails += `Volume Saffron Discount: -₹${discount}\n`;
+    }
+    orderDetails += `Delivery Charge: ₹${activeShippingFee}\n`;
     orderDetails += `===============================\n`;
     orderDetails += `*Grand Total:* ₹${total}\n\n`;
     orderDetails += `*Payment Status:* Pending UPI (Pay to 8825034663@yescred)\n`;
@@ -777,71 +910,105 @@ function showOrderSuccess(orderId, total, orderDetails, email) {
     const footer = document.querySelector('.cart-footer');
     
     if (successPanel) {
-        const totalVal = successPanel.querySelector('.success-total-value');
-        if (totalVal) totalVal.textContent = `₹${total}`;
+        const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         
         // Generate UPI URL
         const upiLink = `upi://pay?pa=8825034663@yescred&pn=KesarHarvesters&am=${total}&cu=INR&tn=Order_${orderId}`;
         
-        // Render QR Code Image using qrserver API
-        const qrContainer = document.getElementById('upi-qr-container');
-        if (qrContainer) {
-            qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiLink)}" alt="Scan to Pay ₹${total}" style="display: block; width: 150px; height: 150px; margin: 0 auto; border-radius: 8px;">`;
-        }
+        // App-specific UPI deep links
+        const gpayLink = `tez://upi/pay?pa=8825034663@yescred&pn=KesarHarvesters&am=${total}&cu=INR&tn=Order_${orderId}`;
+        const phonepeLink = `phonepe://upi/pay?pa=8825034663@yescred&pn=KesarHarvesters&am=${total}&cu=INR&tn=Order_${orderId}`;
+        const paytmLink = `paytmmp://upi/pay?pa=8825034663@yescred&pn=KesarHarvesters&am=${total}&cu=INR&tn=Order_${orderId}`;
         
-        // Configure Specific UPI App Buttons with Desktop Checks
-        const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        // Card request WhatsApp link
+        const cardWaText = `Hi KesarHarvesters, I have registered Order #${orderId} for ₹${total}. I would like to pay via Credit Card / Net Banking. Please send me a secure payment link.`;
+        const cardWaUrl = `https://wa.me/918825034663?text=${encodeURIComponent(cardWaText)}`;
         
-        const gpayBtn = document.getElementById('upi-gpay-btn');
-        if (gpayBtn) {
-            gpayBtn.href = `tez://upi/pay?pa=8825034663@yescred&pn=KesarHarvesters&am=${total}&cu=INR&tn=Order_${orderId}`;
-            gpayBtn.onclick = (e) => {
-                if (!isMobileDevice) {
-                    e.preventDefault();
-                    alert("Google Pay link is only supported on mobile devices. Please scan the QR Code on your screen to pay.");
-                }
-            };
-        }
+        // Populate success panel dynamically
+        successPanel.innerHTML = `
+            <div style="color: #25D366; margin-bottom: 15px; text-align: center;">
+                <i data-lucide="check-circle" style="width: 55px; height: 55px; margin: 0 auto; display: block; stroke-width: 2;"></i>
+            </div>
+            <h3 style="font-size: 22px; font-family: var(--font-serif); margin-bottom: 10px; color: var(--color-primary); text-align: center; font-weight: 700;">Order Registered!</h3>
+            <p style="font-size: 13.5px; color: var(--color-text-muted); margin-bottom: 20px; line-height: 1.5; text-align: center;">
+                Order ID: <strong>#${orderId}</strong><br>
+                Please pay <strong style="color: var(--color-primary); font-size: 16px;">₹${total}</strong> to UPI ID: <strong style="word-break: break-all;">8825034663@yescred</strong> using any option below, then share the screenshot on WhatsApp.
+            </p>
+            
+            <!-- QR Code Section -->
+            <div style="text-align: center; margin: 15px auto;">
+                <div id="upi-qr-container" style="padding: 12px; background: white; border: 2px solid var(--color-primary); border-radius: 16px; display: inline-block; box-shadow: 0 8px 24px rgba(74,20,140,0.06);">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiLink)}" alt="Scan to Pay" style="display: block; width: 150px; height: 150px; border-radius: 8px;">
+                </div>
+                <div style="font-size: 10px; color: var(--color-text-muted); margin-top: 6px;">Scan QR using GPay, PhonePe, Paytm or any UPI App</div>
+            </div>
+            
+            <!-- Direct UPI App Buttons -->
+            <div style="margin-top: 25px; margin-bottom: 25px; text-align: left;">
+                <p style="font-size: 11px; font-weight: 700; color: var(--color-primary-dark); text-transform: uppercase; margin-bottom: 10px; text-align: center; letter-spacing: 0.05em;">Pay directly using your UPI App:</p>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px;">
+                    <a id="upi-gpay-btn" href="${gpayLink}" class="btn-upi-app" style="background-color: #f8f9fa; color: #1a73e8; border: 1px solid #dadce0; border-radius: 12px; padding: 12px 6px; font-size: 11px; font-weight: 700; text-align: center; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); transition: all 0.2s;">
+                        <svg viewBox="0 0 24 24" style="width: 20px; height: 20px;">
+                            <path d="M21.35 11.1h-9.17v2.73h6.51c-.33 1.56-1.56 2.95-3.24 3.75v3.08h5.21c3.05-2.81 4.81-6.96 4.81-11.91 0-.61-.06-1.21-.12-1.65z" fill="#4285F4"/>
+                            <path d="M12.18 20.45c2.75 0 5.06-.91 6.75-2.47l-5.21-3.08c-1.44.97-3.28 1.55-5.26 1.55-4.05 0-7.48-2.73-8.7-6.4H1.35v3.19c2.56 5.09 7.82 8.41 13.92 8.41z" fill="#34A853"/>
+                            <path d="M3.48 10.05a7.17 7.17 0 0 1 0-4.55V2.31H1.35a11.97 11.97 0 0 0 0 10.93l2.13-3.19z" fill="#FBBC05"/>
+                            <path d="M12.18 3.55c1.86 0 3.54.64 4.86 1.91l3.64-3.64C18.47.8 15.54 0 12.18 0 8.08 0 4.3 2.56 2.56 6.32l3.19 3.19c1.22-3.67 4.65-6.4 8.7-6.4z" fill="#EA4335"/>
+                        </svg>
+                        <span>GPay</span>
+                    </a>
+                    <a id="upi-phonepe-btn" href="${phonepeLink}" class="btn-upi-app" style="background-color: #f8f9fa; color: #5f259f; border: 1px solid #dadce0; border-radius: 12px; padding: 12px 6px; font-size: 11px; font-weight: 700; text-align: center; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); transition: all 0.2s;">
+                        <svg viewBox="0 0 24 24" style="width: 20px; height: 20px;" fill="#5f259f">
+                            <path d="M10.206 9.941h2.949v4.692c-.402.201-.938.268-1.34.268-1.072 0-1.609-.536-1.609-1.743V9.941zm13.47 4.816c-1.523 6.449-7.985 10.442-14.433 8.919C2.794 22.154-1.199 15.691.324 9.243 1.847 2.794 8.309-1.199 14.757.324c6.449 1.523 10.442 7.985 8.919 14.433zm-6.231-5.888a.887.887 0 0 0-.871-.871h-1.609l-3.686-4.222c-.335-.402-.871-.536-1.407-.402l-1.274.401c-.201.067-.268.335-.134.469l4.021 3.82H6.386c-.201 0-.335.134-.335.335v.67c0 .469.402.871.871.871h.938v3.217c0 2.413 1.273 3.82 3.418 3.82.67 0 1.206-.067 1.877-.335v2.145c0 .603.469 1.072 1.072 1.072h.938a.432.432 0 0 0 .402-.402V9.874h1.542c.201 0 .335-.134.335-.335v-.67z"/>
+                        </svg>
+                        <span>PhonePe</span>
+                    </a>
+                    <a id="upi-paytm-btn" href="${paytmLink}" class="btn-upi-app" style="background-color: #f8f9fa; color: #00b9f5; border: 1px solid #dadce0; border-radius: 12px; padding: 12px 6px; font-size: 11px; font-weight: 700; text-align: center; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); transition: all 0.2s;">
+                        <svg viewBox="0 0 24 24" style="width: 20px; height: 20px;" fill="#00baf2">
+                            <path d="M15.85 8.167a.204.204 0 0 0-.04.004c-.68.19-.543 1.148-1.781 1.23h-.12a.23.23 0 0 0-.052.005h-.001a.24.24 0 0 0-.184.235v1.09c0 .134.106.241.237.241h.645v4.623c0 .132.104.238.233.238h1.058a.236.236 0 0 0 .233-.238v-4.623h.645a.236.236 0 0 0 .237-.241v-1.09a.24.24 0 0 0-.184-.235h-.001a.23.23 0 0 0-.052-.005h-.12c-1.238-.082-1.101-1.04-1.781-1.23a.204.204 0 0 0-.04-.004zM8.15 8.167a.204.204 0 0 0-.04.004c-.68.19-.543 1.148-1.781 1.23h-.12a.23.23 0 0 0-.052.005h-.001a.24.24 0 0 0-.184.235v4.623c0 .134.106.241.237.241h1.058a.236.236 0 0 0 .233-.238v-4.626h.645a.236.236 0 0 0 .233-.238v-1.09a.24.24 0 0 0-.184-.235h-.001a.23.23 0 0 0-.052-.005h-.12c-1.238-.082-1.101-1.04-1.781-1.23a.204.204 0 0 0-.04-.004zM12 2.667c-5.15 0-9.333 4.184-9.333 9.333 0 5.15 4.183 9.333 9.333 9.333 5.15 0 9.333-4.183 9.333-9.333 0-5.149-4.183-9.333-9.333-9.333z"/>
+                        </svg>
+                        <span>Paytm</span>
+                    </a>
+                </div>
+                
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <a id="upi-pay-app-btn" href="${upiLink}" class="btn btn-gold" style="width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 12px; padding: 10px 16px; border-radius: 8px;">
+                        <i data-lucide="external-link" style="width: 14px; height: 14px;"></i> Other UPI App (CRED/BHIM)
+                    </a>
+                    
+                    <a id="card-payment-btn" href="${cardWaUrl}" target="_blank" class="btn" style="width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 12px; padding: 10px 16px; border-radius: 8px; background-color: #2c3e50; color: white; border: none; font-weight: 600;">
+                        <i data-lucide="credit-card" style="width: 14px; height: 14px;"></i> Pay via Cards / Net Banking
+                    </a>
+                </div>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <a id="wa-confirm-btn" href="https://wa.me/918825034663?text=${encodeURIComponent(orderDetails)}" target="_blank" class="btn btn-whatsapp" style="width: 100%; border-radius: 8px; padding: 12px 16px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700;">
+                    <i data-lucide="message-square"></i> I Have Paid - Confirm via WhatsApp
+                </a>
+                <p style="font-size: 11px; color: var(--color-text-muted); margin-top: 4px; margin-bottom: 8px; line-height: 1.4; text-align: center;">
+                    After completing the payment, click the green button above to send your delivery details and order summary on WhatsApp to confirm your shipment immediately.
+                </p>
+                <a href="javascript:void(0)" onclick="closeCart(); resetCartView();" class="btn btn-outline-dark" style="margin-top: 5px; width: 100%; border-radius: 8px;">Close & Keep Browsing</a>
+            </div>
+        `;
         
-        const phonepeBtn = document.getElementById('upi-phonepe-btn');
-        if (phonepeBtn) {
-            phonepeBtn.href = `phonepe://pay?pa=8825034663@yescred&pn=KesarHarvesters&am=${total}&cu=INR&tn=Order_${orderId}`;
-            phonepeBtn.onclick = (e) => {
-                if (!isMobileDevice) {
-                    e.preventDefault();
-                    alert("PhonePe link is only supported on mobile devices. Please scan the QR Code on your screen to pay.");
-                }
-            };
-        }
+        // Add click events to validate mobile devices for custom schemas
+        const addUpiAppClickValidation = (btnId, alertMsg) => {
+            const btn = document.getElementById(btnId);
+            if (btn) {
+                btn.onclick = (e) => {
+                    if (!isMobileDevice) {
+                        e.preventDefault();
+                        alert(alertMsg);
+                    }
+                };
+            }
+        };
         
-        const paytmBtn = document.getElementById('upi-paytm-btn');
-        if (paytmBtn) {
-            paytmBtn.href = `paytmmp://pay?pa=8825034663@yescred&pn=KesarHarvesters&am=${total}&cu=INR&tn=Order_${orderId}`;
-            paytmBtn.onclick = (e) => {
-                if (!isMobileDevice) {
-                    e.preventDefault();
-                    alert("Paytm link is only supported on mobile devices. Please scan the QR Code on your screen to pay.");
-                }
-            };
-        }
-        
-        const upiPayBtn = document.getElementById('upi-pay-app-btn');
-        if (upiPayBtn) {
-            upiPayBtn.onclick = (e) => {
-                if (!isMobileDevice) {
-                    e.preventDefault();
-                    alert("Pay via UPI App is only supported on mobile devices. Please scan the QR Code on your screen using GPay, PhonePe, Paytm, or BHIM to complete your payment, or open this site on your mobile phone.");
-                }
-            };
-            upiPayBtn.href = upiLink;
-        }
-        
-        // Configure WhatsApp Confirm Button
-        const waConfirmBtn = document.getElementById('wa-confirm-btn');
-        if (waConfirmBtn) {
-            const waUrl = `https://wa.me/918825034663?text=${encodeURIComponent(orderDetails)}`;
-            waConfirmBtn.href = waUrl;
-        }
+        addUpiAppClickValidation('upi-gpay-btn', "Google Pay link is only supported on mobile devices. Please scan the QR Code on your screen to pay.");
+        addUpiAppClickValidation('upi-phonepe-btn', "PhonePe link is only supported on mobile devices. Please scan the QR Code on your screen to pay.");
+        addUpiAppClickValidation('upi-paytm-btn', "Paytm link is only supported on mobile devices. Please scan the QR Code on your screen to pay.");
+        addUpiAppClickValidation('upi-pay-app-btn', "Pay via UPI App is only supported on mobile devices. Please scan the QR Code on your screen using GPay, PhonePe, Paytm, or BHIM to complete your payment.");
         
         successPanel.style.display = 'block';
         if (items) items.style.display = 'none';
